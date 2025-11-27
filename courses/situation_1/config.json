@@ -1,0 +1,95 @@
+{
+  "courseId": "situation_1",
+  "courseName": "Situation 1 - BauMax App",
+  "description": "Grundlagen der C++-Programmierung mit praktischen Übungen für die BauMax-App",
+  "institution": "Heinz-Nixdorf-Berufskolleg",
+  "language": "de",
+  "version": "1.0.0",
+  "chapters": [
+    {
+      "id": "1.0",
+      "title": "Die BauMax-App",
+      "file": "1.0_baumax_app.md",
+      "type": "intro",
+      "duration": "10 min"
+    },
+    {
+      "id": "1.1",
+      "title": "Fliesenrechner",
+      "file": "1.1_fliesenrechner.md",
+      "type": "lesson",
+      "duration": "30 min",
+      "exercise": "1.1_fliesenrechner.html"
+    },
+    {
+      "id": "1.2",
+      "title": "Digitaler Helfer",
+      "file": "1.2_digitaler_helfer.md",
+      "type": "lesson",
+      "duration": "30 min",
+      "exercise": "1.2_digitaler_helfer.html"
+    },
+    {
+      "id": "1.3",
+      "title": "BauMax Premium",
+      "file": "1.3_baumax_premium.md",
+      "type": "lesson",
+      "duration": "35 min",
+      "exercise": "1.3_baumax_premium.html"
+    },
+    {
+      "id": "1.4",
+      "title": "Vollständiges Kundenprofil",
+      "file": "1.4_vollstaendiges_kundenprofil.md",
+      "type": "lesson",
+      "duration": "40 min",
+      "exercise": "1.4_vollstaendiges_kundenprofil.html"
+    },
+    {
+      "id": "1.5",
+      "title": "Checkliste für Warenversand",
+      "file": "1.5_checkliste_warenversand.md",
+      "type": "lesson",
+      "duration": "30 min",
+      "exercise": "1.5_checkliste_warenversand.html"
+    },
+    {
+      "id": "1.6",
+      "title": "Mehrwertsteuer",
+      "file": "1.6_mehrwertsteuer.md",
+      "type": "lesson",
+      "duration": "35 min",
+      "exercise": "1.6_mehrwertsteuer.html"
+    },
+    {
+      "id": "1.7",
+      "title": "Speicheroptimierung",
+      "file": "1.7_speicheroptimierung.md",
+      "type": "lesson",
+      "duration": "40 min",
+      "exercise": "1.7_speicheroptimierung.html"
+    },
+    {
+      "id": "1.8",
+      "title": "Verpackungs-Rechner",
+      "file": "1.8_verpackungs_rechner.md",
+      "type": "lesson",
+      "duration": "35 min",
+      "exercise": "1.8_verpackungs_rechner.html"
+    },
+    {
+      "id": "1.9",
+      "title": "Zugangs-Check",
+      "file": "1.9_zugangs_check.md",
+      "type": "lesson",
+      "duration": "30 min",
+      "exercise": "1.9_zugangs_check.html"
+    }
+  ],
+  "features": {
+    "pyscript": false,
+    "darkMode": true,
+    "offlineSupport": true,
+    "analytics": false
+  }
+}

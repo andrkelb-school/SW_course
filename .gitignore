@@ -1,0 +1,42 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build
+dist/
+build/
+*.min.js
+*.min.css
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary
+temp/
+tmp/
+.cache/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Lock files (optional, for collaborative work)
+# package-lock.json
+# yarn.lock
