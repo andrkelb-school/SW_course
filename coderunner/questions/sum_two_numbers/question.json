@@ -1,14 +1,16 @@
 {
-  "name": "Summe zweier Zahlen",
+  "name": "A1 - Einfache Rechnung",
   "category": "Programmierung/Python/Grundlagen",
   "language": "python3",
-  "prototype": "python3",
-  "description_md": "Sie erhalten zwei ganze Zahlen als Eingabe über stdin (getrennt durch Leerzeichen). Geben Sie die Summe aus.\n\nBeispiel:\nEingabe: 2 3\nAusgabe: 5",
-  "answer_template": "def main():\n    # Lies zwei Zahlen und gib ihre Summe aus\n    pass\n\nif __name__ == '__main__':\n    main()",
-  "answer_box_size": 12,
+  "prototype": "python3_w_input",
+  "description_md": "Schreiben Sie ein Python-Programm, das den Benutzer nach zwei Zahlen fragt und die Summe dieser beiden Zahlen berechnet und ausgibt.",
+  "answer_template": "# Benutzer nach der ersten Zahl fragen\nzahl1 = float(input(\"erste Zahl: \\"))\n\n# Benutzer nach der zweiten Zahl fragen\nzahl2 = float(input(\"zweite Zahl: \\"))\n\n# Berechnung der Summe\nsumme = zahl1 + zahl2\n\n# Ausgabe des Ergebnisses\nprint(\"Die Summe von\", zahl1, \"und\", zahl2, \"ist\", summe)",
+  "answer_box_size": 18,
+  "answer_box_columns": 100,
   "grader_type": "normal",
   "test_strategy": "all_or_nothing",
   "timeout": 5,
+  "penalty_regime": "10, 20, ...",
   "tags": ["arithmetik", "eingabe", "python", "einsteiger"],
   "tests_ref": "tests.yaml"
 }

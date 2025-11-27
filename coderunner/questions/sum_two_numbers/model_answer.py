@@ -1,10 +1,11 @@
-def main():
-    import sys
-    data = sys.stdin.read().strip().split()
-    if len(data) != 2:
-        raise ValueError("Erwarte genau zwei Zahlen")
-    a, b = map(int, data)
-    print(a + b)
+# Benutzer nach der ersten Zahl fragen
+zahl1 = float(input("erste Zahl: "))
 
-if __name__ == "__main__":
-    main()
+# Benutzer nach der zweiten Zahl fragen
+zahl2 = float(input("zweite Zahl: "))
+
+# Berechnung der Summe
+summe = zahl1 + zahl2
+
+# Ausgabe des Ergebnisses
+print("Die Summe von", zahl1, "und", zahl2, "ist", summe)
