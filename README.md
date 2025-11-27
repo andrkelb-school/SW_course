@@ -21,33 +21,55 @@ Eine moderne, externe Kursverwaltungsplattform mit GitHub-Integration, die Moodl
 SW_Situation_1_BauMax/
 ├── 📄 README.md                    # Diese Datei
 ├── 📄 index.html                   # Einstiegspunkt für lokale Tests
-├── 📄 moodle-snippet.html          # Aktuelles Moodle-Embed Script
 │
 ├── 📁 assets/                      # Zentrale Assets
 │   ├── css/
 │   │   └── style.css               # Globale Styles (Mobile-First)
 │   ├── js/
-│   │   ├── loader.js               # [Phase 2] Fetch & Inject Engine
-│   │   └── pyscript-runner.js      # [Phase 3] PyScript Integration
+│   │   ├── loader.js               # Fetch & Inject Engine
+│   │   ├── pyscript-runner.js      # PyScript Integration
+│   │   ├── code-editor.js          # Code Editor mit Syntax-Highlighting
+│   │   └── exercise-system.js      # Interaktive Übungen
 │   └── images/
 │
-├── 📁 courses/                     # Alle Kurse
-│   └── situation_1/                # Situation 1 - BauMax App
+├── 📁 courses/                     # Alle Kurse (Multi-Situation Support)
+│   ├── situation_1/                # Situation 1 - BauMax App
+│   │   ├── config.json             # Kurs-Metadaten & Kapitel
+│   │   ├── moodle-snippet.html     # Moodle-Embed für Situation 1
+│   │   ├── chapters/               # HTML-Kapitel
+│   │   │   ├── seite1.0_baumax_app.html
+│   │   │   ├── seite1.1_fliesenrechner.html
+│   │   │   └── ...
+│   │   └── exercises/              # Interaktive Übungen (geplant)
+│   │
+│   └── situation_2/                # Situation 2 - SmartHome Systems
 │       ├── config.json             # Kurs-Metadaten & Kapitel
-│       ├── chapters/               # Markdown-Inhalte
-│       │   ├── 1.0_baumax_app.md
-│       │   ├── 1.1_fliesenrechner.md
-│       │   └── ...
-│       └── exercises/              # HTML-Übungen
-│           ├── 1.1_fliesenrechner.html
-│           ├── 1.2_digitaler_helfer.html
+│       ├── moodle-snippet.html     # Moodle-Embed für Situation 2
+│       └── chapters/               # HTML-Kapitel
+│           ├── seite2.0_smarthome_systems.html
+│           ├── seite2.1_logik_architekt.html
 │           └── ...
 │
-├── 📁 dist/                        # Verteilbare Dateien
-│   └── moodle-embed.html           # [Phase 2] Optimiertes Embed-Script
+├── 📁 coderunner/                  # CodeRunner Integration (Moodle)
+│   ├── README.md                   # CodeRunner Dokumentation
+│   ├── questions/                  # Python-Aufgaben
+│   │   └── sum_two_numbers/        # Beispiel: A1 - Einfache Rechnung
+│   │       ├── prompt.md           # Aufgabenstellung
+│   │       ├── question.json       # Metadaten
+│   │       ├── tests.yaml          # Testfälle
+│   │       ├── model_answer.py     # Musterlösung
+│   │       └── template.mustache   # Starter-Code
+│   ├── scripts/
+│   │   └── build_moodle_xml.py     # Generator für Moodle XML
+│   └── dist/
+│       ├── moodle-export.xml       # Auto-generiert (minimal)
+│       └── single-question.xml     # Lauffähige Version
 │
-└── 📁 github_content/              # [Legacy] Alte HTML-Seiten
-    └── seite1.*.html               # Wird zu Phase 2 migriert
+└── 📁 dev/                         # Entwicklungs-/Test-Dateien
+    ├── demo-pyscript.html          # PyScript Demo
+    ├── test-dashboard.html         # Test Dashboard
+    ├── test-python-simple.html     # Python Tester
+    └── test-runner.html            # Integration Tests
 ```
 
 ---
@@ -56,66 +78,62 @@ SW_Situation_1_BauMax/
 
 ### Phase 1 ✅ ABGESCHLOSSEN
 **Grundstruktur & Infrastruktur**
-- ✅ Ordnerstruktur (assets/, courses/, dist/)
+- ✅ Ordnerstruktur (assets/, courses/, coderunner/, dev/)
 - ✅ config.json für Kursmetadaten
 - ✅ Zentrale CSS mit Dark Mode & Responsive Design
 - ✅ index.html Landing Page
 - ✅ Git-Repository mit .gitignore
-**Status:** Erfolgreich bereitgestellt in Commit `b89f71a`
+- ✅ Multi-Situation Support (Situation 1 & 2)
+- ✅ CodeRunner Integration für Python-Aufgaben
+- ✅ Moodle-Snippets in course-spezifischen Ordnern
+**Status:** Erfolgreich bereitgestellt
 
-### Phase 2 🔄 IN ARBEIT
+### Phase 2 ✅ ABGESCHLOSSEN
 **Loader-System & Dynamisches Rendering**
 
-#### 🎯 Neue Dateien in Phase 2:
+#### 🎯 Dateien in Phase 2:
 
-**`assets/js/loader.js`** (650+ Zeilen)
+**`assets/js/loader.js`**
 - CourseLoader Klasse mit config.json Support
 - Dynamisches Kapitel-Laden und Rendering
 - LocalStorage Caching mit TTL
 - Error Handling & Fallbacks
-- Browser-kompatibel (IE10+)
+- Browser-kompatibel
 
-**`dist/moodle-embed.html`** (optimiert für Moodle)
+**`courses/situation_X/moodle-snippet.html`**
 - Vollständig responsive Design
 - Dark Mode Support
 - Mobile-optimiert für alle Geräte
-- Einfache Moodle-Integration via iframe
+- Marker-basiertes Content-Extraction System
+- Collapsible Table of Contents
+- Situation-spezifische Konfiguration
 
-**`test-runner.html`** & **`test-dashboard.html`**
+**`dev/test-runner.html`** & **`dev/test-dashboard.html`**
 - Unit Tests & Integration Tests
 - Performance Monitoring
-- Test Coverage Reports
 - Automatisierte Testausführung
 
-#### 🎯 Features in Phase 2:
+#### ✅ Features in Phase 2:
 - ✅ Fetch & Inject Engine
 - ✅ Config-getriebene Kapitelstruktur
-- ✅ Intelligentes Caching mit Invalidierung
+- ✅ Multi-Course Support (Situation 1 & 2)
+- ✅ Intelligentes Caching mit Cache-Busting
 - ✅ Mobile-First Design
 - ✅ Dark Mode
-- ✅ Fehlerbehandlung & Fallbacks
-- ✅ Vollständig getestet
+- ✅ Marker-basierte Content-Extraction
+- ✅ Fallback-Strategien für Legacy-Inhalte
+- ✅ jsDelivr CDN Integration
 
-#### 💻 Verwendung:
-```html
-<!-- In Moodle iframe oder standalone -->
-<script src="assets/js/loader.js"></script>
-<div id="content_container"></div>
-<script>
-  window.CourseLoaderConfig = {
-    courseId: 'situation_1',
-    container: '#content_container',
-    cacheEnabled: true
-  };
-</script>
-```
+#### 💻 Verwendung in Moodle:
+Kopiere den Inhalt von `courses/situation_X/moodle-snippet.html` in eine Moodle-Seite (HTML-Modus).
+Die Kapitel werden automatisch via jsDelivr CDN geladen.
 
-### Phase 3 🔄 IN ARBEIT
+### Phase 3 ✅ ABGESCHLOSSEN
 **PyScript Integration & Python-Ausführung**
 
-#### 🎯 Neue Dateien in Phase 3:
+#### 🎯 Dateien in Phase 3:
 
-**`assets/js/pyscript-runner.js`** (400+ Zeilen)
+**`assets/js/pyscript-runner.js`**
 - Pyodide Integration (CPython in WebAssembly)
 - Code Execution Engine mit Output-Capture
 - Test Case Management & Auto-Grading
@@ -123,7 +141,7 @@ SW_Situation_1_BauMax/
 - Execution History & Statistics
 - Vollständig Vanilla JS (keine Dependencies)
 
-**`assets/js/code-editor.js`** (350+ Zeilen)
+**`assets/js/code-editor.js`**
 - Python Code Editor mit Line Numbers
 - Syntax Highlighting (highlight.js)
 - Auto-Indentation & Tab Support
@@ -132,7 +150,7 @@ SW_Situation_1_BauMax/
 - Copy/Paste Funktionalität
 - Fully Responsive Design
 
-**`assets/js/exercise-system.js`** (500+ Zeilen)
+**`assets/js/exercise-system.js`**
 - Interaktive Python-Übungen
 - Auto-Grading mit Test Cases
 - Hints & Tips System
@@ -141,22 +159,13 @@ SW_Situation_1_BauMax/
 - Feedback System
 - LocalStorage Integration
 
-**`demo-pyscript.html`** (Neue Demo-Seite)
+**`dev/demo-pyscript.html`**
 - Live Python Code Editor
 - Exercise Showcase
 - Feature Demonstrations
 - Interactive Tutorials
 
-#### 🎯 Updates Phase 3:
-
-**`config.json`** erweitert (v2.0.0)
-- Phase 3 Flag hinzugefügt
-- `python_exercise` Objekte für alle Kapitel
-- Starter Code Templates
-- Test Cases pro Übung
-- Hints & Tipps
-
-#### ✨ Features in Phase 3:
+#### ✅ Features in Phase 3:
 - ✅ Python Code-Ausführung im Browser (Pyodide)
 - ✅ Code-Editor mit Syntax-Highlighting
 - ✅ Auto-Grading Systeme
@@ -167,37 +176,42 @@ SW_Situation_1_BauMax/
 - ✅ Dark Mode Support
 - ✅ Keine Server-Dependencies
 
-#### 🚀 Verwendung:
-```javascript
-// Erstelle PyScript Runner
-const runner = new PyScriptRunner({
-  outputId: 'output_container'
-});
+### Phase 4 ✅ ABGESCHLOSSEN
+**CodeRunner Integration für Moodle**
 
-// Oder Exercise System
-const system = new ExerciseSystem({
-  containerId: 'exercise_container'
-});
-await system.loadExercise(exercise);
-```
+#### 🎯 Dateien in Phase 4:
 
-### Phase 4 📱 ZUKÜNFTIG
+**`coderunner/`** - Vollständige CodeRunner-Integration
+- Python-Aufgaben mit interaktiven Tests
+- Moodle XML Export für direkten Import
+- YAML-basierte Testfall-Definition
+- Musterlösungen und Starter-Code
+- Build-Script für automatische Generierung
+
+**Erste Beispielaufgabe:** `sum_two_numbers`
+- Interaktive Python-Aufgabe (input/output)
+- Multi-line Testfälle
+- Lauffähige Moodle XML verfügbar
+
+#### ✅ Features in Phase 4:
+- ✅ CodeRunner-Fragestruktur in Repository
+- ✅ YAML-basierte Testdefinitionen
+- ✅ Moodle XML Export (manuell erstellt)
+- ✅ Dokumentation mit LTI-Roadmap
+- 🔮 Geplant: LTI-Integration für Live-Sync mit Moodle
+
+### Phase 5 📱 ZUKÜNFTIG
 **Advanced Features & Optimierung**
-- [ ] Markdown-Support für Kapitel-Inhalte
+- [ ] LTI-Integration für CodeRunner (Repo ↔ Moodle Sync)
 - [ ] Service Workers für Offline-Unterstützung
 - [ ] Progressive Web App (PWA) Struktur
 - [ ] Moodle Gradebook Integration
-- [ ] Echtzeit-Synchronisation mit Moodle
 - [ ] Analytics & Learning Analytics
-- [ ] Mobile App (React Native/Flutter)
+- [ ] Weitere Situations (3, 4, ...)
+- [ ] Erweiterte CodeRunner-Aufgaben
 - [ ] Collaboration & Code Sharing
 - [x] README Dokumentation
-- [ ] Alte HTML-Inhalte migrieren
-
-### 🔄 Phase 2: Loader-System
-- [ ] JavaScript Fetch & Inject Engine
-- [ ] Markdown zu HTML Converter
-- [ ] Optimiertes Moodle-Embed Script
+- [x] Projekt-Reorganisation
 - [ ] Caching & LocalStorage
 - [ ] Mobile-First Tests
 
