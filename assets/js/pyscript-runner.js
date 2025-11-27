@@ -46,13 +46,15 @@ class PyScriptRunner {
     console.log('🐍 PyScript Runner v1.0.0 initializing...');
     
     try {
+      this.setupUI();
+      this.log('info', '⏳ Laden von Pyodide (bis zu 30 Sekunden beim ersten Mal)...');
+      
       // Laden von Pyodide (Pyodide = CPython in WebAssembly)
       await this.loadPyodide();
-      this.setupUI();
       this.attachEventListeners();
       
       console.log('✅ PyScript Runner ready!');
-      this.log('info', 'Python-Ausführungsumgebung bereit');
+      this.log('success', '✅ Python-Umgebung bereit! Code kann jetzt ausgeführt werden.');
     } catch (error) {
       console.error('❌ PyScript Initialization failed:', error);
       this.log('error', `Initialisierungsfehler: ${error.message}`);
@@ -63,9 +65,9 @@ class PyScriptRunner {
    * Lade Pyodide (Python in WebAssembly)
    */
   async loadPyodide() {
-    if (window.pyodide_ready) {
+    if (window.pyodide_ready && window.pyodide) {
       this.pyodideReady = true;
-      console.log('✓ Pyodide bereits geladen');
+      console.log('✓ Pyodide bereits im Cache');
       return;
     }
 
@@ -73,26 +75,38 @@ class PyScriptRunner {
       // Dynamisch Pyodide Script laden
       const scriptUrl = `https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js`;
       
-      console.log('📥 Lade Pyodide von:', scriptUrl);
+      console.log('📥 Lade Pyodide CDN...');
       
-      // Verwende Promise für Script-Laden
-      await new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = scriptUrl;
-        script.onload = resolve;
-        script.onerror = () => reject(new Error('Pyodide Script konnte nicht geladen werden'));
-        document.head.appendChild(script);
-      });
+      // Verwende Promise für Script-Laden mit Timeout
+      await Promise.race([
+        new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = scriptUrl;
+          script.async = true;
+          script.onload = resolve;
+          script.onerror = () => reject(new Error('Pyodide Script konnte nicht geladen werden'));
+          document.head.appendChild(script);
+        }),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Pyodide Timeout (>60s)')), 60000)
+        )
+      ]);
 
+      console.log('✓ Pyodide Script geladen, initialisiere...');
+      
       // Initialisiere Pyodide
-      const pyodide = await globalThis.loadPyodide();
+      const pyodide = await globalThis.loadPyodide({
+        indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.23.4/full/'
+      });
+      
       window.pyodide = pyodide;
+      window.pyodide_ready = true;
       this.pyodideReady = true;
       
-      console.log('✅ Pyodide v' + pyodide.version + ' geladen');
-      this.log('success', 'Pyodide erfolgreich geladen');
+      console.log('✅ Pyodide v' + pyodide.version + ' ready');
     } catch (error) {
       console.error('❌ Fehler beim Laden von Pyodide:', error);
+      this.log('error', `Pyodide Fehler: ${error.message}`);
       throw error;
     }
   }
@@ -145,6 +159,7 @@ class PyScriptRunner {
   async runCode(code = null) {
     if (!this.pyodideReady) {
       this.log('error', 'Pyodide ist noch nicht geladen. Bitte warten...');
+      console.error('Pyodide not ready. window.pyodide:', window.pyodide);
       return;
     }
 
@@ -160,8 +175,6 @@ class PyScriptRunner {
     }
 
     this.isRunning = true;
-    this.stdoutBuffer = [];
-    this.stderrBuffer = [];
     this.clearOutput();
 
     const startTime = performance.now();
@@ -170,69 +183,82 @@ class PyScriptRunner {
     try {
       this.log('info', '⏳ Code wird ausgeführt...');
 
-      // Redirect stdout/stderr
       const pyodide = window.pyodide;
-      
-      // Funktion zum Erfassen von Ausgaben
-      const pythonCode = `
+      if (!pyodide) {
+        throw new Error('Pyodide nicht verfügbar');
+      }
+
+      // Schreibe User-Code mit print-Umleitung
+      // Wichtig: Führe User-Code direkt aus, nicht in try-block wrapper
+      const wrappedCode = `
 import sys
 from io import StringIO
 
-# Capture stdout
-old_stdout = sys.stdout
-sys.stdout = StringIO()
+_output_buffer = StringIO()
+_original_stdout = sys.stdout
+sys.stdout = _output_buffer
 
 try:
-${this.indentCode(code)}
-    result = None
+${this.indentCode(code, 4)}
 except Exception as e:
-    result = f"Error: {e}"
-    sys.stderr.write(str(e))
+    import traceback
+    traceback.print_exc()
 
-output = sys.stdout.getvalue()
-sys.stdout = old_stdout
-output
+sys.stdout = _original_stdout
+_captured_output = _output_buffer.getvalue()
+_captured_output
 `;
 
-      // Führe Code aus
-      const result = await pyodide.runPythonAsync(pythonCode);
-      
+      console.log('🔧 Wrapped Code:', wrappedCode);
+
+      // Führe aus
+      let result;
+      try {
+        result = pyodide.runPython(wrappedCode);
+      } catch (e) {
+        // Falls synchrone Variante fehlschlägt, versuche async
+        result = await pyodide.runPythonAsync(wrappedCode);
+      }
+
       const endTime = performance.now();
       const duration = (endTime - startTime).toFixed(2);
 
-      // Zeige Output
-      if (result) {
-        this.log('output', String(result));
+      // Output anzeigen
+      const outputStr = String(result || '').trim();
+      if (outputStr) {
+        // Split output in einzelne Zeilen und zeige jede
+        outputStr.split('\n').forEach(line => {
+          if (line.trim()) {
+            this.log('output', line);
+          }
+        });
+      } else {
+        this.log('info', '[keine Ausgabe]');
       }
 
-      // Speichere in History
+      // History
       this.executionHistory.push({
         id: executionId,
         code,
-        result,
+        result: outputStr,
         duration,
         timestamp: new Date().toISOString(),
         status: 'success'
       });
 
-      this.log('success', `✅ Ausführung erfolgreich (${duration}ms)`);
+      this.log('success', `✅ Erfolgreich (${duration}ms)`);
 
     } catch (error) {
-      const endTime = performance.now();
-      const duration = (endTime - startTime).toFixed(2);
-
+      console.error('❌ Execution Error:', error);
       this.log('error', `❌ Fehler: ${error.message}`);
-
-      // Speichere Fehler in History
+      
       this.executionHistory.push({
         id: executionId,
         code,
         error: error.message,
-        duration,
         timestamp: new Date().toISOString(),
         status: 'error'
       });
-
     } finally {
       this.isRunning = false;
     }
@@ -241,10 +267,11 @@ output
   /**
    * Rücke Code ein (für Python)
    */
-  indentCode(code) {
+  indentCode(code, spaces = 4) {
+    const indent = ' '.repeat(spaces);
     return code
       .split('\n')
-      .map(line => '    ' + line)
+      .map(line => indent + line)
       .join('\n');
   }
 
