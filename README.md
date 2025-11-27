@@ -110,22 +110,87 @@ SW_Situation_1_BauMax/
 </script>
 ```
 
-### Phase 3 🔮 GEPLANT
-**PyScript Integration & Erweiterte Features**
-- [ ] PyScript Setup für Python-Ausführung im Browser
-- [ ] Python Code-Editor mit Syntax-Highlighting
-- [ ] Exercise-Sandbox mit Output-Capture
-- [ ] Code-Validierung & Feedback-System
-- [ ] Progress Tracking & Statistiken
+### Phase 3 🔄 IN ARBEIT
+**PyScript Integration & Python-Ausführung**
+
+#### 🎯 Neue Dateien in Phase 3:
+
+**`assets/js/pyscript-runner.js`** (400+ Zeilen)
+- Pyodide Integration (CPython in WebAssembly)
+- Code Execution Engine mit Output-Capture
+- Test Case Management & Auto-Grading
+- Error Handling & Debugging
+- Execution History & Statistics
+- Vollständig Vanilla JS (keine Dependencies)
+
+**`assets/js/code-editor.js`** (350+ Zeilen)
+- Python Code Editor mit Line Numbers
+- Syntax Highlighting (highlight.js)
+- Auto-Indentation & Tab Support
+- Theme Support (Light/Dark)
+- Keyboard Shortcuts (Ctrl+Enter, Tab)
+- Copy/Paste Funktionalität
+- Fully Responsive Design
+
+**`assets/js/exercise-system.js`** (500+ Zeilen)
+- Interaktive Python-Übungen
+- Auto-Grading mit Test Cases
+- Hints & Tips System
+- Progress Tracking & Solution Storage
+- Difficulty Levels (easy/medium/hard)
+- Feedback System
+- LocalStorage Integration
+
+**`demo-pyscript.html`** (Neue Demo-Seite)
+- Live Python Code Editor
+- Exercise Showcase
+- Feature Demonstrations
+- Interactive Tutorials
+
+#### 🎯 Updates Phase 3:
+
+**`config.json`** erweitert (v2.0.0)
+- Phase 3 Flag hinzugefügt
+- `python_exercise` Objekte für alle Kapitel
+- Starter Code Templates
+- Test Cases pro Übung
+- Hints & Tipps
+
+#### ✨ Features in Phase 3:
+- ✅ Python Code-Ausführung im Browser (Pyodide)
+- ✅ Code-Editor mit Syntax-Highlighting
+- ✅ Auto-Grading Systeme
+- ✅ Test Case Management
+- ✅ Hints & Feedback
+- ✅ Progress Tracking
+- ✅ Responsive Design
+- ✅ Dark Mode Support
+- ✅ Keine Server-Dependencies
+
+#### 🚀 Verwendung:
+```javascript
+// Erstelle PyScript Runner
+const runner = new PyScriptRunner({
+  outputId: 'output_container'
+});
+
+// Oder Exercise System
+const system = new ExerciseSystem({
+  containerId: 'exercise_container'
+});
+await system.loadExercise(exercise);
+```
 
 ### Phase 4 📱 ZUKÜNFTIG
 **Advanced Features & Optimierung**
+- [ ] Markdown-Support für Kapitel-Inhalte
 - [ ] Service Workers für Offline-Unterstützung
 - [ ] Progressive Web App (PWA) Struktur
 - [ ] Moodle Gradebook Integration
 - [ ] Echtzeit-Synchronisation mit Moodle
 - [ ] Analytics & Learning Analytics
 - [ ] Mobile App (React Native/Flutter)
+- [ ] Collaboration & Code Sharing
 - [x] README Dokumentation
 - [ ] Alte HTML-Inhalte migrieren
 

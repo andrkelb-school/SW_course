@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BauMax Phase 3 - PyScript Demo</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+        }
+
+        .demo-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 3px solid #005691;
+            padding-bottom: 1rem;
+        }
+
+        .demo-header h1 {
+            color: #005691;
+            margin: 0 0 0.5rem 0;
+            font-size: 2.5em;
+        }
+
+        .demo-header p {
+            color: #666;
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .demo-card {
+            background: #f9f9f9;
+            border: 2px solid #005691;
+            border-radius: 8px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .demo-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .demo-card h3 {
+            color: #005691;
+            margin-top: 0;
+        }
+
+        .demo-card .icon {
+            font-size: 3em;
+            margin-bottom: 1rem;
+        }
+
+        .demo-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: #005691;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            background: #003d6b;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .code-example {
+            background: #2d2d2d;
+            color: #abb2bf;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature-list li:before {
+            content: "✅ ";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .demo-section {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .demo-section h2 {
+            color: #005691;
+            margin-top: 0;
+            border-bottom: 2px solid #005691;
+            padding-bottom: 0.5rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #005691;
+        }
+
+        .spinner {
+            display: inline-block;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #005691;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 1rem;
+        }
+
+        .status-ready {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-loading {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .demo-container {
+                padding: 1rem;
+            }
+
+            .demo-header h1 {
+                font-size: 1.8em;
+            }
+
+            .demo-tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Header -->
+        <div class="demo-header">
+            <h1>🐍 BauMax Phase 3 - PyScript Demo</h1>
+            <p>Python-Ausführung im Browser mit interaktiven Übungen</p>
+            <div style="margin-top: 1rem;">
+                <span class="status-badge status-ready">✅ Phase 3 READY</span>
+            </div>
+        </div>
+
+        <!-- Demo Tabs -->
+        <div class="demo-tabs">
+            <button class="tab-btn active" onclick="switchTab('overview')">📋 Übersicht</button>
+            <button class="tab-btn" onclick="switchTab('editor')">💻 Code Editor</button>
+            <button class="tab-btn" onclick="switchTab('exercise')">🎯 Übung</button>
+            <button class="tab-btn" onclick="switchTab('features')">✨ Features</button>
+        </div>
+
+        <!-- Tab: Übersicht -->
+        <div id="overview" class="tab-content active demo-section">
+            <h2>📋 Phase 3 - PyScript Integration</h2>
+            <p>Diese Demo zeigt die Kernfunktionalitäten von Phase 3:</p>
+
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="icon">🐍</div>
+                    <h3>PyScript Runner</h3>
+                    <p>Führe Python-Code direkt im Browser aus mit:</p>
+                    <ul class="feature-list">
+                        <li>Pyodide (CPython in WebAssembly)</li>
+                        <li>Output Capture</li>
+                        <li>Error Handling</li>
+                        <li>Execution History</li>
+                    </ul>
+                </div>
+
+                <div class="demo-card">
+                    <div class="icon">💻</div>
+                    <h3>Code Editor</h3>
+                    <p>Professioneller Python-Editor mit:</p>
+                    <ul class="feature-list">
+                        <li>Syntax Highlighting</li>
+                        <li>Line Numbers</li>
+                        <li>Auto-Indentation</li>
+                        <li>Dark Mode</li>
+                    </ul>
+                </div>
+
+                <div class="demo-card">
+                    <div class="icon">🎯</div>
+                    <h3>Exercise System</h3>
+                    <p>Interaktive Übungen mit:</p>
+                    <ul class="feature-list">
+                        <li>Auto-Grading</li>
+                        <li>Test Cases</li>
+                        <li>Hints & Tipps</li>
+                        <li>Progress Tracking</li>
+                    </ul>
+                </div>
+
+                <div class="demo-card">
+                    <div class="icon">📊</div>
+                    <h3>Progress Tracking</h3>
+                    <p>Überwache Fortschritt:</p>
+                    <ul class="feature-list">
+                        <li>Solution Storage</li>
+                        <li>Test Results</li>
+                        <li>Hints Used</li>
+                        <li>Time Tracking</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                <h4 style="margin-top: 0; color: #005691;">🚀 Quick Start</h4>
+                <p>Wechsle zum <strong>"Code Editor"</strong> Tab um Python-Code auszuführen, oder probiere eine <strong>"Übung"</strong>!</p>
+            </div>
+        </div>
+
+        <!-- Tab: Code Editor -->
+        <div id="editor" class="tab-content demo-section">
+            <h2>💻 Code Editor - Live Demo</h2>
+            <p>Schreibe Python-Code und führe ihn sofort aus (Ctrl+Enter):</p>
+
+            <div id="editor_container" style="margin: 1rem 0;"></div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button class="tab-btn" onclick="runEditorCode()">▶️ Code ausführen</button>
+                <button class="tab-btn" onclick="clearEditor()">🗑️ Löschen</button>
+                <button class="tab-btn" onclick="loadExample()">📝 Beispiel laden</button>
+            </div>
+
+            <div id="output_container" style="
+                background: #f5f5f5;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 1rem;
+                margin-top: 1rem;
+                min-height: 100px;
+                max-height: 300px;
+                overflow-y: auto;
+            "></div>
+        </div>
+
+        <!-- Tab: Übung -->
+        <div id="exercise" class="tab-content demo-section">
+            <h2>🎯 Interaktive Übung</h2>
+            <p>Löse eine Python-Übung mit Auto-Grading:</p>
+
+            <div id="exercise_container" style="margin-top: 1rem;"></div>
+        </div>
+
+        <!-- Tab: Features -->
+        <div id="features" class="tab-content demo-section">
+            <h2>✨ Phase 3 Features</h2>
+
+            <h3>🐍 PyScript Runner (assets/js/pyscript-runner.js)</h3>
+            <div class="code-example">
+// Erstelle Runner
+const runner = new PyScriptRunner({
+  containerId: 'output_container'
+});
+
+// Führe Code aus
+await runner.runCode('print("Hallo Python!")');
+
+// Führe Tests durch
+const results = await runner.runTests([
+  { name: 'Test 1', code: '1 + 1', expected: 2 }
+]);
+            </div>
+
+            <h3>💻 Code Editor (assets/js/code-editor.js)</h3>
+            <div class="code-example">
+// Erstelle Editor
+const editor = new PythonCodeEditor({
+  containerId: 'editor_container',
+  theme: 'dark',
+  lineNumbers: true
+});
+
+// Setze Code
+editor.setCode('print("Hello World")');
+
+// Hole Code
+const code = editor.getCode();
+            </div>
+
+            <h3>🎯 Exercise System (assets/js/exercise-system.js)</h3>
+            <div class="code-example">
+// Erstelle Exercise System
+const system = new ExerciseSystem({
+  containerId: 'exercise_container'
+});
+
+// Lade Übung
+await system.loadExercise({
+  id: '1.1',
+  title: 'Erste Schritte',
+  description: 'Schreibe ein Programm...',
+  testCases: [...],
+  hints: [...]
+});
+
+// Führe Tests durch
+await system.runTests();
+            </div>
+
+            <h3>📊 Technologie Stack</h3>
+            <ul class="feature-list">
+                <li><strong>Pyodide 0.23.4</strong> - CPython in WebAssembly</li>
+                <li><strong>highlight.js 11.9.0</strong> - Syntax Highlighting</li>
+                <li><strong>LocalStorage API</strong> - Progress Tracking</li>
+                <li><strong>Vanilla JavaScript</strong> - Keine Dependencies</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/pyscript-runner.js"></script>
+    <script src="assets/js/code-editor.js"></script>
+    <script src="assets/js/exercise-system.js"></script>
+
+    <script>
+        let runner = null;
+        let editor = null;
+        let exerciseSystem = null;
+
+        // Tab Switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // Initialize components if needed
+            if (tabName === 'editor') {
+                initializeEditor();
+            } else if (tabName === 'exercise') {
+                initializeExercise();
+            }
+        }
+
+        // Initialize Editor
+        async function initializeEditor() {
+            if (editor) return;
+
+            console.log('🎬 Initializing Editor...');
+            
+            const editorContainer = document.getElementById('editor_container');
+            
+            // Erstelle Textarea
+            const textarea = document.createElement('textarea');
+            textarea.id = 'code_editor';
+            textarea.style.cssText = `
+                width: 100%;
+                height: 300px;
+                padding: 1rem;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-family: monospace;
+                font-size: 0.9em;
+                line-height: 1.5;
+                resize: vertical;
+            `;
+            textarea.placeholder = 'Schreibe Python-Code hier... (Ctrl+Enter zum Ausführen)';
+            textarea.value = `# Willkommen bei PyScript!
+# Schreibe deinen Python-Code hier
+
+print("Hello from Python!")
+print("Berechnung:", 2 + 2)
+
+# Listen
+numbers = [1, 2, 3, 4, 5]
+for num in numbers:
+    print(f"Zahl: {num}")`;
+            
+            editorContainer.appendChild(textarea);
+
+            // Keyboard shortcut
+            textarea.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    e.preventDefault();
+                    runEditorCode();
+                }
+            });
+
+            // Initialize Runner
+            if (!runner) {
+                runner = new PyScriptRunner({
+                    outputId: 'output_container'
+                });
+            }
+        }
+
+        // Run Editor Code
+        async function runEditorCode() {
+            const code = document.getElementById('code_editor')?.value;
+            if (!code) {
+                alert('Bitte Code eingeben');
+                return;
+            }
+
+            if (!runner) {
+                runner = new PyScriptRunner({
+                    outputId: 'output_container'
+                });
+            }
+
+            await runner.runCode(code);
+        }
+
+        // Clear Editor
+        function clearEditor() {
+            const textarea = document.getElementById('code_editor');
+            if (textarea) {
+                textarea.value = '';
+            }
+        }
+
+        // Load Example
+        function loadExample() {
+            const example = `# Beispiel: Fliesenrechner
+room_length = 5  # Meter
+room_width = 4   # Meter
+tile_size = 0.5  # Meter
+
+tiles_x = int(room_length / tile_size)
+tiles_y = int(room_width / tile_size)
+total_tiles = tiles_x * tiles_y
+
+print(f"Raum: {room_length}m x {room_width}m")
+print(f"Fliesen pro Reihe: {tiles_x}")
+print(f"Fliesen pro Spalte: {tiles_y}")
+print(f"Gesamtfliesen benötigt: {total_tiles}")`;
+
+            const textarea = document.getElementById('code_editor');
+            if (textarea) {
+                textarea.value = example;
+            }
+        }
+
+        // Initialize Exercise
+        async function initializeExercise() {
+            if (exerciseSystem) return;
+
+            console.log('🎬 Initializing Exercise...');
+
+            exerciseSystem = new ExerciseSystem({
+                containerId: 'exercise_container'
+            });
+
+            // Load Example Exercise
+            const exampleExercise = {
+                id: '1.1',
+                title: 'Erste Schritte mit Python',
+                difficulty: 'easy',
+                description: `
+                    <h4>Aufgabe: Schreibe ein Programm, das den Umfang und die Fläche eines Rechtecks berechnet.</h4>
+                    <p><strong>Anforderungen:</strong></p>
+                    <ul>
+                        <li>Definiere zwei Variablen: <code>length</code> und <code>width</code></li>
+                        <li>Berechne den Umfang: <code>perimeter = 2 * (length + width)</code></li>
+                        <li>Berechne die Fläche: <code>area = length * width</code></li>
+                        <li>Gib beide Werte aus</li>
+                    </ul>
+                `,
+                starterCode: `# Berechne Umfang und Fläche eines Rechtecks
+length = 5
+width = 3
+
+# TODO: Schreibe deinen Code hier
+perimeter = 0
+area = 0
+
+print(f"Umfang: {perimeter}")
+print(f"Fläche: {area}")`,
+                examples: [
+                    { input: 'length=5, width=3', output: 'Umfang: 16, Fläche: 15' },
+                    { input: 'length=10, width=4', output: 'Umfang: 28, Fläche: 40' }
+                ],
+                hints: [
+                    'Umfang = 2 * (Länge + Breite)',
+                    'Fläche = Länge * Breite',
+                    'Verwende print() um die Ergebnisse auszugeben'
+                ],
+                testCases: [
+                    { name: 'Syntax-Check', code: 'len("test") > 0', expected: true }
+                ]
+            };
+
+            await exerciseSystem.loadExercise(exampleExercise);
+            window.exerciseSystem = exerciseSystem;
+        }
+
+        // On Load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🐍 PyScript Demo loaded');
+            console.log('Phase 3 Features:');
+            console.log('- PyScriptRunner für Code-Ausführung');
+            console.log('- PythonCodeEditor mit Syntax-Highlighting');
+            console.log('- ExerciseSystem mit Auto-Grading');
+        });
+    </script>
+</body>
+</html>

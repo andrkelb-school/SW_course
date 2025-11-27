@@ -1,10 +1,12 @@
 {
   "courseId": "situation_1",
   "courseName": "Situation 1 - BauMax App",
-  "description": "Grundlagen der C++-Programmierung mit praktischen Übungen für die BauMax-App",
+  "description": "Grundlagen der C++-Programmierung mit praktischen Übungen für die BauMax-App - jetzt mit Python PyScript Integration!",
   "institution": "Heinz-Nixdorf-Berufskolleg",
   "language": "de",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "phase": 3,
+  "features": ["python_exercises", "auto_grading", "progress_tracking", "pyscript"],
   "chapters": [
     {
       "id": "1.0",
@@ -19,7 +21,23 @@
       "file": "1.1_fliesenrechner.md",
       "type": "lesson",
       "duration": "30 min",
-      "exercise": "1.1_fliesenrechner.html"
+      "exercise": "1.1_fliesenrechner.html",
+      "python_exercise": {
+        "id": "1.1_py",
+        "title": "Fliesenrechner (Python)",
+        "difficulty": "easy",
+        "starter_code": "room_length = 5\nroom_width = 4\ntile_size = 0.5\n\n# Berechne die Anzahl der Fliesen\ntiles_x = int(room_length / tile_size)\ntiles_y = int(room_width / tile_size)\ntotal_tiles = tiles_x * tiles_y\n\nprint(f'Fliesen X: {tiles_x}')\nprint(f'Fliesen Y: {tiles_y}')\nprint(f'Gesamtfliesen: {total_tiles}')",
+        "description": "Schreibe ein Programm, das berechnet, wie viele Fliesen für einen Raum benötigt werden.",
+        "hints": [
+          "Teile die Raumlänge durch die Fliesen-Größe",
+          "Berechne Fliesen pro Reihe und pro Spalte",
+          "Multipliziere die beiden Ergebnisse um die Gesamtanzahl zu bekommen"
+        ],
+        "test_cases": [
+          { "name": "Standard Test", "code": "assert total_tiles == 80", "expected": true },
+          { "name": "Output Test", "code": "print(total_tiles) == None", "expected": true }
+        ]
+      }
     },
     {
       "id": "1.2",
@@ -27,7 +45,21 @@
       "file": "1.2_digitaler_helfer.md",
       "type": "lesson",
       "duration": "30 min",
-      "exercise": "1.2_digitaler_helfer.html"
+      "exercise": "1.2_digitaler_helfer.html",
+      "python_exercise": {
+        "id": "1.2_py",
+        "title": "Digitaler Helfer (Python)",
+        "difficulty": "easy",
+        "starter_code": "# Berechne die Kosten für ein Projekt\nstundenlohn = 50\nstunden = 10\n\n# Berechne Gesamtkosten\ntotal_cost = stundenlohn * stunden\nprint(f'Stundenlohn: {stundenlohn}€')\nprint(f'Arbeitsstunden: {stunden}h')\nprint(f'Gesamtkosten: {total_cost}€')",
+        "description": "Erstelle ein Programm, das die Projektkosten basierend auf Stundenlohn und Stunden berechnet.",
+        "hints": [
+          "Multipliziere den Stundenlohn mit den Arbeitsstunden",
+          "Gib das Ergebnis aus"
+        ],
+        "test_cases": [
+          { "name": "Cost Calculation", "code": "assert total_cost == 500", "expected": true }
+        ]
+      }
     },
     {
       "id": "1.3",
@@ -35,7 +67,18 @@
       "file": "1.3_baumax_premium.md",
       "type": "lesson",
       "duration": "35 min",
-      "exercise": "1.3_baumax_premium.html"
+      "exercise": "1.3_baumax_premium.html",
+      "python_exercise": {
+        "id": "1.3_py",
+        "title": "Premium-Kalkulation (Python)",
+        "difficulty": "medium",
+        "starter_code": "# Premium-Pakete für BauMax\nstandard_price = 100\npremium_multiplier = 1.5\n\n# Berechne Premium-Preis\npremium_price = standard_price * premium_multiplier\ndiscount = premium_price * 0.1\nfinal_price = premium_price - discount\n\nprint(f'Standard: {standard_price}€')\nprint(f'Premium: {premium_price}€')\nprint(f'Nach Rabatt: {final_price}€')",
+        "description": "Implementiere ein System zur Berechnung von Premium-Preisen.",
+        "hints": [
+          "Premium-Preis = Standard-Preis × Multiplier",
+          "Berechne Rabatte für Premium-Pakete"
+        ]
+      }
     },
     {
       "id": "1.4",
@@ -43,7 +86,18 @@
       "file": "1.4_vollstaendiges_kundenprofil.md",
       "type": "lesson",
       "duration": "40 min",
-      "exercise": "1.4_vollstaendiges_kundenprofil.html"
+      "exercise": "1.4_vollstaendiges_kundenprofil.html",
+      "python_exercise": {
+        "id": "1.4_py",
+        "title": "Kundendaten-Management (Python)",
+        "difficulty": "medium",
+        "starter_code": "# Kundendaten-Struktur\ncustomer = {\n    'name': 'Max Mustermann',\n    'email': 'max@example.com',\n    'orders': 5,\n    'balance': 1500.50\n}\n\n# Gib Kundendaten aus\nfor key, value in customer.items():\n    print(f'{key}: {value}')",
+        "description": "Erstelle ein System zur Verwaltung von Kundendaten.",
+        "hints": [
+          "Verwende Dictionaries für Kundendaten",
+          "Iteriere über Dictionary-Items"
+        ]
+      }
     },
     {
       "id": "1.5",
@@ -51,22 +105,47 @@
       "file": "1.5_checkliste_warenversand.md",
       "type": "lesson",
       "duration": "30 min",
-      "exercise": "1.5_checkliste_warenversand.html"
+      "exercise": "1.5_checkliste_warenversand.html",
+      "python_exercise": {
+        "id": "1.5_py",
+        "title": "Versand-Checkliste (Python)",
+        "difficulty": "medium",
+        "starter_code": "# Versand-Checkliste\nitems = ['Packung', 'Adressetikett', 'Rechnung', 'Versandschein']\nchecked = 0\n\nfor item in items:\n    print(f'☐ {item}')\n    checked += 1\n\nprint(f'\\nGesamt Items: {len(items)}')\nprint(f'Überprüft: {checked}')",
+        "description": "Entwickle eine Checklisten-Anwendung für Warenversand.",
+        "hints": [
+          "Nutze Listen für Items",
+          "Zähle überprüfte Items"
+        ]
+      }
     },
     {
       "id": "1.6",
       "title": "Mehrwertsteuer",
       "file": "1.6_mehrwertsteuer.md",
       "type": "lesson",
-      "duration": "35 min",
-      "exercise": "1.6_mehrwertsteuer.html"
+      "duration": "25 min",
+      "exercise": "1.6_mehrwertsteuer.html",
+      "python_exercise": {
+        "id": "1.6_py",
+        "title": "Mehrwertsteuer-Kalkulation (Python)",
+        "difficulty": "easy",
+        "starter_code": "# Berechne Mehrwertsteuer\nnet_price = 100\nvat_rate = 0.19\n\nvat_amount = net_price * vat_rate\ngross_price = net_price + vat_amount\n\nprint(f'Netto: {net_price}€')\nprint(f'MwSt (19%): {vat_amount}€')\nprint(f'Brutto: {gross_price}€')",
+        "description": "Schreibe ein Programm, das Mehrwertsteuer berechnet.",
+        "hints": [
+          "VAT = Netto-Preis × MwSt-Satz",
+          "Brutto = Netto + VAT"
+        ],
+        "test_cases": [
+          { "name": "VAT Calculation", "code": "assert abs(gross_price - 119.0) < 0.01", "expected": true }
+        ]
+      }
     },
     {
       "id": "1.7",
       "title": "Speicheroptimierung",
       "file": "1.7_speicheroptimierung.md",
       "type": "lesson",
-      "duration": "40 min",
+      "duration": "30 min",
       "exercise": "1.7_speicheroptimierung.html"
     },
     {
@@ -74,22 +153,57 @@
       "title": "Verpackungs-Rechner",
       "file": "1.8_verpackungs_rechner.md",
       "type": "lesson",
-      "duration": "35 min",
-      "exercise": "1.8_verpackungs_rechner.html"
+      "duration": "30 min",
+      "exercise": "1.8_verpackungs_rechner.html",
+      "python_exercise": {
+        "id": "1.8_py",
+        "title": "Verpackungs-Optimierung (Python)",
+        "difficulty": "hard",
+        "starter_code": "# Verpackungsgrößen\nbox_sizes = [10, 20, 50, 100]\nitem_count = 237\n\n# Berechne optimale Verpackung\nboxes_needed = -(-item_count // box_sizes[-1])\nremaining = item_count % box_sizes[-1]\n\nprint(f'Artikel: {item_count}')\nprint(f'Große Boxen (100): {boxes_needed}')\nprint(f'Restliche: {remaining}')",
+        "description": "Entwickle einen Algorithmus zur Optimierung von Verpackungen.",
+        "hints": [
+          "Verwende große Box-Größen zuerst",
+          "Berechne Rest mit Modulo-Operator"
+        ]
+      }
     },
     {
       "id": "1.9",
       "title": "Zugangs-Check",
       "file": "1.9_zugangs_check.md",
       "type": "lesson",
-      "duration": "30 min",
-      "exercise": "1.9_zugangs_check.html"
+      "duration": "25 min",
+      "exercise": "1.9_zugangs_check.html",
+      "python_exercise": {
+        "id": "1.9_py",
+        "title": "Zugangs-Validierung (Python)",
+        "difficulty": "easy",
+        "starter_code": "# Zugangs-Daten\nusername = 'admin'\npassword = 'secret123'\n\n# Validierung\nif username and len(password) >= 6:\n    print(f'✓ Zugang erlaubt für {username}')\nelse:\n    print('✗ Ungültige Anmeldedaten')",
+        "description": "Schreibe ein Programm zur Validierung von Benutzer-Zugängen.",
+        "hints": [
+          "Prüfe ob Username nicht leer ist",
+          "Validiere die Passwort-Länge (min. 6 Zeichen)"
+        ]
+      }
+    },
+    {
+      "id": "1.10",
+      "title": "Abschluss-Projekt",
+      "file": "1.10_abschluss_projekt.md",
+      "type": "project",
+      "duration": "60 min",
+      "exercise": "1.10_abschluss_projekt.html",
+      "python_exercise": {
+        "id": "1.10_py",
+        "title": "BauMax Complete System (Python)",
+        "difficulty": "hard",
+        "starter_code": "# BauMax Gesamt-System\nclass BauMaxSystem:\n    def __init__(self):\n        self.customers = []\n        self.projects = []\n    \n    def add_customer(self, name, email):\n        self.customers.append({'name': name, 'email': email})\n    \n    def get_summary(self):\n        return f'System hat {len(self.customers)} Kunden'\n\n# Test\nsystem = BauMaxSystem()\nsystem.add_customer('Max', 'max@example.com')\nprint(system.get_summary())",
+        "description": "Erstelle ein vollständiges BauMax-Management-System in Python.",
+        "hints": [
+          "Nutze Objektorientierung (Klassen)",
+          "Integriere alle vorherigen Konzepte"
+        ]
+      }
     }
-  ],
-  "features": {
-    "pyscript": false,
-    "darkMode": true,
-    "offlineSupport": true,
-    "analytics": false
-  }
+  ]
 }
