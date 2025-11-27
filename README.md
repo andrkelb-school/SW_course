@@ -74,158 +74,28 @@ SW_Situation_1_BauMax/
 
 ---
 
-## 🚀 Implementierungs-Roadmap
+## ✨ Features
 
-### Phase 1 ✅ ABGESCHLOSSEN
-**Grundstruktur & Infrastruktur**
-- ✅ Ordnerstruktur (assets/, courses/, coderunner/, dev/)
-- ✅ config.json für Kursmetadaten
-- ✅ Zentrale CSS mit Dark Mode & Responsive Design
-- ✅ index.html Landing Page
-- ✅ Git-Repository mit .gitignore
-- ✅ Multi-Situation Support (Situation 1 & 2)
-- ✅ CodeRunner Integration für Python-Aufgaben
-- ✅ Moodle-Snippets in course-spezifischen Ordnern
-**Status:** Erfolgreich bereitgestellt
+### 🎓 Multi-Course Support
+- Situation 1: BauMax App (9 Kapitel)
+- Situation 2: SmartHome Systems (2+ Kapitel)
+- Einfaches Hinzufügen neuer Situations
 
-### Phase 2 ✅ ABGESCHLOSSEN
-**Loader-System & Dynamisches Rendering**
+### 🔧 Technische Features
+- **Loader-System**: Dynamisches Laden von Kapiteln via jsDelivr CDN
+- **PyScript Integration**: Python-Code direkt im Browser ausführen
+- **CodeRunner**: Moodle-Integration für Python-Aufgaben mit Auto-Grading
+- **Responsive Design**: Mobile-First, Dark Mode Support
+- **Caching**: Intelligentes LocalStorage Caching mit Cache-Busting
+- **Marker-System**: Flexible Content-Extraction für Moodle
 
-#### 🎯 Dateien in Phase 2:
+### 📝 Entwicklungs-Tools
+- Test-Dashboard für System-Debugging
+- PyScript Demo-Umgebung
+- Integration Test Runner
+- Build-Scripts für CodeRunner XML-Export
 
-**`assets/js/loader.js`**
-- CourseLoader Klasse mit config.json Support
-- Dynamisches Kapitel-Laden und Rendering
-- LocalStorage Caching mit TTL
-- Error Handling & Fallbacks
-- Browser-kompatibel
-
-**`courses/situation_X/moodle-snippet.html`**
-- Vollständig responsive Design
-- Dark Mode Support
-- Mobile-optimiert für alle Geräte
-- Marker-basiertes Content-Extraction System
-- Collapsible Table of Contents
-- Situation-spezifische Konfiguration
-
-**`dev/test-runner.html`** & **`dev/test-dashboard.html`**
-- Unit Tests & Integration Tests
-- Performance Monitoring
-- Automatisierte Testausführung
-
-#### ✅ Features in Phase 2:
-- ✅ Fetch & Inject Engine
-- ✅ Config-getriebene Kapitelstruktur
-- ✅ Multi-Course Support (Situation 1 & 2)
-- ✅ Intelligentes Caching mit Cache-Busting
-- ✅ Mobile-First Design
-- ✅ Dark Mode
-- ✅ Marker-basierte Content-Extraction
-- ✅ Fallback-Strategien für Legacy-Inhalte
-- ✅ jsDelivr CDN Integration
-
-#### 💻 Verwendung in Moodle:
-Kopiere den Inhalt von `courses/situation_X/moodle-snippet.html` in eine Moodle-Seite (HTML-Modus).
-Die Kapitel werden automatisch via jsDelivr CDN geladen.
-
-### Phase 3 ✅ ABGESCHLOSSEN
-**PyScript Integration & Python-Ausführung**
-
-#### 🎯 Dateien in Phase 3:
-
-**`assets/js/pyscript-runner.js`**
-- Pyodide Integration (CPython in WebAssembly)
-- Code Execution Engine mit Output-Capture
-- Test Case Management & Auto-Grading
-- Error Handling & Debugging
-- Execution History & Statistics
-- Vollständig Vanilla JS (keine Dependencies)
-
-**`assets/js/code-editor.js`**
-- Python Code Editor mit Line Numbers
-- Syntax Highlighting (highlight.js)
-- Auto-Indentation & Tab Support
-- Theme Support (Light/Dark)
-- Keyboard Shortcuts (Ctrl+Enter, Tab)
-- Copy/Paste Funktionalität
-- Fully Responsive Design
-
-**`assets/js/exercise-system.js`**
-- Interaktive Python-Übungen
-- Auto-Grading mit Test Cases
-- Hints & Tips System
-- Progress Tracking & Solution Storage
-- Difficulty Levels (easy/medium/hard)
-- Feedback System
-- LocalStorage Integration
-
-**`dev/demo-pyscript.html`**
-- Live Python Code Editor
-- Exercise Showcase
-- Feature Demonstrations
-- Interactive Tutorials
-
-#### ✅ Features in Phase 3:
-- ✅ Python Code-Ausführung im Browser (Pyodide)
-- ✅ Code-Editor mit Syntax-Highlighting
-- ✅ Auto-Grading Systeme
-- ✅ Test Case Management
-- ✅ Hints & Feedback
-- ✅ Progress Tracking
-- ✅ Responsive Design
-- ✅ Dark Mode Support
-- ✅ Keine Server-Dependencies
-
-### Phase 4 ✅ ABGESCHLOSSEN
-**CodeRunner Integration für Moodle**
-
-#### 🎯 Dateien in Phase 4:
-
-**`coderunner/`** - Vollständige CodeRunner-Integration
-- Python-Aufgaben mit interaktiven Tests
-- Moodle XML Export für direkten Import
-- YAML-basierte Testfall-Definition
-- Musterlösungen und Starter-Code
-- Build-Script für automatische Generierung
-
-**Erste Beispielaufgabe:** `sum_two_numbers`
-- Interaktive Python-Aufgabe (input/output)
-- Multi-line Testfälle
-- Lauffähige Moodle XML verfügbar
-
-#### ✅ Features in Phase 4:
-- ✅ CodeRunner-Fragestruktur in Repository
-- ✅ YAML-basierte Testdefinitionen
-- ✅ Moodle XML Export (manuell erstellt)
-- ✅ Dokumentation mit LTI-Roadmap
-- 🔮 Geplant: LTI-Integration für Live-Sync mit Moodle
-
-### Phase 5 📱 ZUKÜNFTIG
-**Advanced Features & Optimierung**
-- [ ] LTI-Integration für CodeRunner (Repo ↔ Moodle Sync)
-- [ ] Service Workers für Offline-Unterstützung
-- [ ] Progressive Web App (PWA) Struktur
-- [ ] Moodle Gradebook Integration
-- [ ] Analytics & Learning Analytics
-- [ ] Weitere Situations (3, 4, ...)
-- [ ] Erweiterte CodeRunner-Aufgaben
-- [ ] Collaboration & Code Sharing
-- [x] README Dokumentation
-- [x] Projekt-Reorganisation
-- [ ] Caching & LocalStorage
-- [ ] Mobile-First Tests
-
-### 🔮 Phase 3: PyScript Integration
-- [ ] PyScript Setup & Sandbox
-- [ ] Python-Übungen im Browser
-- [ ] Output-Capture & Visualisierung
-- [ ] Error Handling für Python
-
-### 📱 Phase 4: Erweiterte Features
-- [ ] Offline-Support (Service Workers)
-- [ ] Benutzerfortschritt-Tracking
-- [ ] Code-Editor Integration
-- [ ] Social Features (Sharing)
+> **Zukünftige Aufgaben** siehe [TODO.md](TODO.md)
 
 ---
 
