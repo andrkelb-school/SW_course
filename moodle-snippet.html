@@ -1,0 +1,180 @@
+<!-- Kopieren Sie den gesamten Code von hier an in Ihr Moodle-Textfeld -->
+
+<!-- 1. HTML-Struktur: Container für den Inhalt und Lade-Hinweis -->
+<div id="content_container">
+    <div style="text-align: center; padding: 2rem;">
+        <p>Lade Inhalte...</p>
+        <!-- Optional: Ein einfacher CSS-Spinner -->
+        <div style="margin: auto; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; animation: spin 2s linear infinite;"></div>
+    </div>
+</div>
+<style>
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<!-- 2. JavaScript-Logik zum Laden und Verarbeiten der Inhalte -->
+<script type="module">
+    // ============== KONFIGURATION ==============
+    // Erkennt automatisch, ob lokal (über einen Server) oder online,
+    // und wählt den korrekten Basispfad.
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const baseUrl = isLocal 
+        ? 'github_content/' 
+        : 'https://cdn.jsdelivr.net/gh/andrkelb-school/Moodle_Kurs_auf_Github@main/github_content/';
+
+    // Der Dateiname, der geladen werden soll.
+    const filename = 'seite1_smarthome.html';
+
+    // Der Marker, der den relevanten Inhaltsbereich eingrenzt.
+    // Der Inhalt ZWISCHEN zwei solchen Markern wird extrahiert.
+    const marker = '<!-- HIER_STARTET_DER_INHALT -->';
+    // ===========================================
+
+
+    // DOM-Element für den Container holen
+    const contentContainer = document.getElementById('content_container');
+
+    /**
+     * Repariert relative Pfade in einem HTML-String.
+     * Sucht nach src="..." und href="..." und stellt die baseUrl voran,
+     * falls der Pfad nicht mit http beginnt.
+     * @param {string} htmlString - Der zu verarbeitende HTML-Code.
+     * @param {string} base - Die Basis-URL, die vorangestellt werden soll.
+     * @returns {string} Der HTML-Code mit korrigierten Pfaden.
+     */
+    function fixRelativePaths(htmlString, base) {
+        // Wir erstellen ein temporäres, nicht sichtbares DOM-Element,
+        // um die HTML-Attribute sicher und einfach zu bearbeiten.
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlString;
+
+        // Alle Elemente mit src- oder href-Attribut auswählen
+        const elementsToFix = tempDiv.querySelectorAll('[src], [href]');
+
+        elementsToFix.forEach(el => {
+            // Prüfen, ob das Element ein 'src'- oder 'href'-Attribut hat
+            const hasSrc = el.hasAttribute('src');
+            const hasHref = el.hasAttribute('href');
+
+            if (hasSrc) {
+                const path = el.getAttribute('src');
+                // Wenn der Pfad existiert und nicht mit http(s)://, # oder mailto: beginnt...
+                if (path && !path.startsWith('http') && !path.startsWith('#') && !path.startsWith('mailto:')) {
+                    // ... setze die baseUrl davor.
+                    el.setAttribute('src', base + path);
+                }
+            }
+
+            if (hasHref) {
+                const path = el.getAttribute('href');
+                if (path && !path.startsWith('http') && !path.startsWith('#') && !path.startsWith('mailto:')) {
+                    el.setAttribute('href', base + path);
+                }
+            }
+        });
+
+        return tempDiv.innerHTML;
+    }
+
+    /**
+     * Hauptfunktion zum Laden und Anzeigen der Inhalte.
+     */
+    async function loadContent() {
+        try {
+            // Cache-Busting: Hängt einen Zeitstempel an, um Caching durch Moodle zu verhindern
+            const fetchUrl = `${baseUrl}${filename}?t=${Date.now()}`;
+
+            // 1. Inhalte von der externen URL abrufen
+            const response = await fetch(fetchUrl);
+
+            // Fehler, falls die Datei nicht gefunden wurde (z.B. 404)
+            if (!response.ok) {
+                throw new Error(`Datei nicht gefunden oder Server-Fehler (Status: ${response.status})`);
+            }
+
+            const fullHtml = await response.text();
+
+            // 2. Inhalt zwischen den Markern extrahieren
+            const parts = fullHtml.split(marker);
+
+            if (parts.length < 3) {
+                throw new Error(`Der Marker "${marker}" wurde nicht zweimal in der Zieldatei gefunden.`);
+            }
+
+            let extractedContent = parts[1]; // Wir nehmen den Teil zwischen den beiden Markern
+
+            // 3. Relative Pfade für Bilder und Links reparieren
+            extractedContent = fixRelativePaths(extractedContent, baseUrl);
+
+            // 4. Den aufbereiteten Inhalt im Container anzeigen
+            contentContainer.innerHTML = extractedContent;
+
+            // 5. Link-Handler anlegen: Verhindert, dass der Browser eine Seite
+            // im Raw-Format öffnet. Stattdessen holen wir die Zielseite per
+            // fetch und rendern den HTML-Inhalt im Container.
+            function attachLinkHandlers() {
+                const anchors = contentContainer.querySelectorAll('a[href]');
+                anchors.forEach(a => {
+                    // Nur eigene relative/angepasste Links abfangen (auf baseUrl oder ohne http)
+                    const href = a.getAttribute('href');
+                    if (!href) return;
+
+                    // Wenn Link extern ist (http(s) und nicht unsere baseUrl), oder auf eine ID verweist, nicht abfangen
+                    if (href.startsWith('#') || href.startsWith('mailto:') || (href.startsWith('http') && !href.startsWith(baseUrl))) {
+                        return;
+                    }
+
+                    // Abfangen
+                    a.addEventListener('click', async (ev) => {
+                        ev.preventDefault();
+                        try {
+                            // a.href ist die 'magische' Eigenschaft, die die volle, aufgelöste URL liefert.
+                            // Das funktioniert sowohl lokal als auch online.
+                            const fetchUrl = `${a.href}?t=${Date.now()}`;
+                            const res = await fetch(fetchUrl);
+                            if (!res.ok) throw new Error(`Fehler beim Laden (Status: ${res.status})`);
+                            const html = await res.text();
+
+                            // Falls die Zielseite ebenfalls Marker enthält, extrahiere wie vorher
+                            const parts = html.split(marker);
+                            let newContent = parts.length >= 3 ? parts[1] : html;
+                            
+                            // Pfade im neu geladenen Inhalt ebenfalls korrigieren
+                            const fixed = fixRelativePaths(newContent, baseUrl);
+                            contentContainer.innerHTML = fixed;
+
+                            // Re-attach handlers für die neu geladenen Links
+                            attachLinkHandlers();
+                        } catch (err) {
+                            console.error('Fehler beim Laden verlinkter Seite:', err);
+                            contentContainer.innerHTML = `<div style="border: 2px solid red; background-color: #ffebee; padding: 1rem; color: #c62828;"><strong>Fehler beim Laden der verlinkten Seite</strong><p>${err.message}</p></div>`;
+                        }
+                    });
+                });
+            }
+
+            // Handler initial anlegen
+            attachLinkHandlers();
+
+        } catch (error) {
+            // 5. Fehlerbehandlung: Zeigt eine Fehlermeldung im Container an
+            console.error('Fehler beim Laden des Inhalts:', error);
+            contentContainer.innerHTML = `
+                <div style="border: 2px solid red; background-color: #ffebee; padding: 1rem; color: #c62828;">
+                    <strong>Fehler beim Laden der Inhalte</strong>
+                    <p>${error.message}</p>
+                    <p>Bitte überprüfen Sie die Konfiguration im Skript oder die Verfügbarkeit der Zieldatei.</p>
+                </div>
+            `;
+        }
+    }
+
+    // Die Ladefunktion aufrufen
+    loadContent();
+
+</script>
+
+<!-- Ende des kopierbaren Codes -->
