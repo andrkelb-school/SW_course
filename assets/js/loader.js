@@ -14,7 +14,7 @@
 
 class CourseLoader {
   constructor(options = {}) {
-    this.baseUrl = options.baseUrl || 'https://cdn.jsdelivr.net/gh/andrkelb-school/SW_Situation_1_BauMax@latest';
+    this.baseUrl = options.baseUrl || 'https://cdn.jsdelivr.net/gh/andrkelb-school/SW_course@latest';
     this.courseId = options.courseId || 'situation_1';
     this.localMode = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     
@@ -93,9 +93,7 @@ class CourseLoader {
     const header = document.createElement('div');
     header.className = 'course-header';
     header.innerHTML = `
-      <h2 style="color: white; margin: 0 0 0.5rem 0;">${this.config.courseName}</h2>
-      <p style="margin: 0; color: rgba(255, 255, 255, 0.9); font-size: 0.9em;">${this.config.description}</p>
-      <small style="color: rgba(255, 255, 255, 0.8);">v${this.config.version} • ${this.config.institution}</small>
+      <h2 style="color: white; margin: 0;">${this.config.courseName}</h2>
     `;
     container.appendChild(header);
 

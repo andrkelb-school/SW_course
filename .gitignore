@@ -14,7 +14,8 @@ node_modules/
 package-lock.json
 
 # Build
-dist/
+dist/*
+!dist/moodle-embed.html
 build/
 *.min.js
 *.min.css

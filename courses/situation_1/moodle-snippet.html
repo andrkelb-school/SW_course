@@ -29,11 +29,11 @@
     // Bevorzugte Basis: neue Ordnerstruktur courses/<situation>/chapters
     const baseUrl = isLocal 
         ? `courses/situation_${situation}/chapters/`
-        : `https://cdn.jsdelivr.net/gh/andrkelb-school/SW_Situation_1_BauMax@latest/courses/situation_${situation}/chapters/`;
+        : `https://cdn.jsdelivr.net/gh/andrkelb-school/SW_course@latest/courses/situation_${situation}/chapters/`;
     // Fallback (alt): github_content/
     const fallbackBaseUrl = isLocal 
         ? 'github_content/' 
-        : 'https://cdn.jsdelivr.net/gh/andrkelb-school/SW_Situation_1_BauMax@latest/github_content/';
+        : 'https://cdn.jsdelivr.net/gh/andrkelb-school/SW_course@latest/github_content/';
 
     // Dynamisches Kapitel-Verzeichnis (harte Zuordnung vorhandener HTML-Dateien)
     const chapters_s1 = [

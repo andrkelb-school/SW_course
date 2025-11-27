@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kurs-Embed</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    body { background: #f6f9fc; }
+    .embed-header { text-align:center; padding: 1rem; color:#005691; }
+  </style>
+  <script>
+    (function(){
+      const params = new URLSearchParams(window.location.search);
+      const situationParam = params.get('situation');
+      const courseParam = params.get('course');
+      let courseId = 'situation_1';
+      if (courseParam) {
+        courseId = courseParam;
+      } else if (situationParam) {
+        const s = situationParam.trim();
+        courseId = s.startsWith('situation_') ? s : `situation_${s}`;
+      }
+      window.CourseLoaderConfig = {
+        courseId,
+        container: '#content_container',
+        cacheEnabled: false
+      };
+    })();
+  </script>
+  <script src="../assets/js/loader.js"></script>
+</head>
+<body>
+  <div class="embed-header">
+    <h1 style="margin:0; font-size:1.25rem;">Kursansicht</h1>
+    <small>Repository: <a href="https://github.com/andrkelb-school/SW_course" target="_blank" rel="noopener">andrkelb-school/SW_course</a></small>
+  </div>
+  <main id="content_container" style="max-width: 1100px; margin: 0 auto; padding: 0 1rem 2rem;"></main>
+</body>
+</html>

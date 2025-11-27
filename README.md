@@ -18,7 +18,7 @@ Eine moderne, externe Kursverwaltungsplattform mit GitHub-Integration, die Moodl
 ## 📁 Repo-Struktur
 
 ```
-SW_Situation_1_BauMax/
+SW_course/
 ├── 📄 README.md                    # Diese Datei
 ├── 📄 index.html                   # Einstiegspunkt für lokale Tests
 │
@@ -179,7 +179,7 @@ http://localhost:8000/index.html
 ### In Moodle einbinden
 ```html
 <!-- Kopieren Sie diesen Code in ein Moodle-Textfeld -->
-<iframe src="https://cdn.jsdelivr.net/gh/andrkelb-school/SW_Situation_1_BauMax@latest/dist/moodle-embed.html" 
+<iframe src="https://cdn.jsdelivr.net/gh/andrkelb-school/SW_course@latest/dist/moodle-embed.html" 
         width="100%" 
         height="800" 
         style="border: none;"></iframe>
@@ -233,7 +233,7 @@ Neue Kurse oder Features? Gerne!
 
 ## 📞 Support & Kontakt
 
-- **Repository:** https://github.com/andrkelb-school/SW_Situation_1_BauMax
+- **Repository:** https://github.com/andrkelb-school/SW_course
 - **Issues:** GitHub Issues verwenden
 - **Docs:** Siehe `README.md` (diese Datei)
 

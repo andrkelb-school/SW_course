@@ -69,6 +69,18 @@ body {
   transition: var(--transition);
 }
 
+/* Course Header (embedded view) */
+.course-header {
+  background: linear-gradient(135deg, #005691, #0078d4);
+  color: #ffffff;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-lg);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+.course-header h2 { color: #ffffff; }
+.course-header p { color: rgba(255,255,255,0.9); }
+.course-header small { color: rgba(255,255,255,0.85); }
+
 /* ============================================
    Layout Components
    ============================================ */
