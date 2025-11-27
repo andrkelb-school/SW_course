@@ -19,7 +19,12 @@
 <script type="module">
     // ============== KONFIGURATION ==============
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    // Bevorzugter Pfad: neue Ordnerstruktur
     const baseUrl = isLocal 
+        ? 'courses/situation_2/chapters/' 
+        : 'https://cdn.jsdelivr.net/gh/andrkelb-school/SW_Situation_1_BauMax@latest/courses/situation_2/chapters/';
+    // Fallback: Altpfad
+    const fallbackBaseUrl = isLocal 
         ? 'github_content/' 
         : 'https://cdn.jsdelivr.net/gh/andrkelb-school/SW_Situation_1_BauMax@latest/github_content/';
 
@@ -143,8 +148,13 @@
 
     async function loadContent(fileToLoad = currentFile) {
         try {
-            const fetchUrl = `${baseUrl}${fileToLoad}?t=${Date.now()}`;
-            const response = await fetch(fetchUrl);
+            let fetchUrl = `${baseUrl}${fileToLoad}?t=${Date.now()}`;
+            let response = await fetch(fetchUrl);
+            if (!response.ok) {
+                console.warn(`Primärpfad fehlgeschlagen (${response.status}) – versuche Fallback`);
+                fetchUrl = `${fallbackBaseUrl}${fileToLoad}?t=${Date.now()}`;
+                response = await fetch(fetchUrl);
+            }
             if (!response.ok) {
                 throw new Error(`Datei nicht gefunden oder Server-Fehler (Status: ${response.status})`);
             }
@@ -190,8 +200,16 @@
                     a.addEventListener('click', async (ev) => {
                         ev.preventDefault();
                         try {
-                            const fetchUrl = `${a.href}?t=${Date.now()}`;
-                            const res = await fetch(fetchUrl);
+                            let fetchUrl = `${a.href}?t=${Date.now()}`;
+                            let res = await fetch(fetchUrl);
+                            if (!res.ok) {
+                                try {
+                                    const url = new URL(a.href);
+                                    const replaced = url.href.replace(baseUrl, fallbackBaseUrl);
+                                    fetchUrl = `${replaced}?t=${Date.now()}`;
+                                    res = await fetch(fetchUrl);
+                                } catch {}
+                            }
                             if (!res.ok) throw new Error(`Fehler beim Laden (Status: ${res.status})`);
                             const html = await res.text();
                             const subMatches = [...html.matchAll(markerRegex)];

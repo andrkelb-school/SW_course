@@ -259,15 +259,21 @@ class CourseLoader {
         throw new Error(`Keine Datei für Kapitel ${chapter.id} definiert`);
       }
 
-      const fullUrl = `${this.baseUrl}/github_content/${fileName}?t=${Date.now()}`;
-      console.log(`📥 Lade: ${fullUrl}`);
-      
-      const response = await fetch(fullUrl);
+      // Primär: neue Ordnerstruktur (courses/<courseId>/chapters)
+      const primaryUrl = `${this.baseUrl}/courses/${this.courseId}/chapters/${fileName}?t=${Date.now()}`;
+      const fallbackUrl = `${this.baseUrl}/github_content/${fileName}?t=${Date.now()}`;
+      console.log(`📥 Lade: ${primaryUrl} (Fallback: github_content)`);
+
+      let html;
+      let response = await fetch(primaryUrl);
+      if (!response.ok) {
+        console.warn(`⚠️ Primärpfad fehlgeschlagen (${response.status}) – versuche Fallback`);
+        response = await fetch(fallbackUrl);
+      }
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
-
-      let html = await response.text();
+      html = await response.text();
       // Extrahiere Inhalt zwischen Markern
       const content = this.extractContent(html);
       this.saveToCache(cacheKey, content);

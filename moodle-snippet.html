@@ -21,16 +21,21 @@
     // Erkennt automatisch, ob lokal (über einen Server) oder online,
     // und wählt den korrekten Basispfad.
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const baseUrl = isLocal 
-        ? 'github_content/' 
-        // Online über jsDelivr CDN (nicht Purge-Endpoint!)
-        : 'https://cdn.jsdelivr.net/gh/andrkelb-school/SW_Situation_1_BauMax@latest/github_content/';
-
     // URL-Parameter lesen
     const urlParams = new URLSearchParams(window.location.search);
-    // Dynamisches Kapitel-Verzeichnis (harte Zuordnung vorhandener HTML-Dateien)
     // Situation wählen (1|2). Standard: 1
     const situation = (urlParams.get('situation') || '1').trim();
+
+    // Bevorzugte Basis: neue Ordnerstruktur courses/<situation>/chapters
+    const baseUrl = isLocal 
+        ? `courses/situation_${situation}/chapters/`
+        : `https://cdn.jsdelivr.net/gh/andrkelb-school/SW_Situation_1_BauMax@latest/courses/situation_${situation}/chapters/`;
+    // Fallback (alt): github_content/
+    const fallbackBaseUrl = isLocal 
+        ? 'github_content/' 
+        : 'https://cdn.jsdelivr.net/gh/andrkelb-school/SW_Situation_1_BauMax@latest/github_content/';
+
+    // Dynamisches Kapitel-Verzeichnis (harte Zuordnung vorhandener HTML-Dateien)
     const chapters_s1 = [
         { id: '1.0', title: 'Die BauMax-App', file: 'seite1.0_baumax_app.html' },
         { id: '1.1', title: 'Fliesenrechner', file: 'seite1.1_fliesenrechner.html' },
@@ -198,10 +203,15 @@
     async function loadContent(fileToLoad = currentFile) {
         try {
             // Cache-Busting + dynamischer Dateiname
-            const fetchUrl = `${baseUrl}${fileToLoad}?t=${Date.now()}`;
+            let fetchUrl = `${baseUrl}${fileToLoad}?t=${Date.now()}`;
 
-            // 1. Inhalte von der externen URL abrufen
-            const response = await fetch(fetchUrl);
+            // 1. Inhalte von der externen URL abrufen (mit Fallback-Pfad)
+            let response = await fetch(fetchUrl);
+            if (!response.ok) {
+                console.warn(`Primärpfad fehlgeschlagen (${response.status}) – versuche Fallback`);
+                fetchUrl = `${fallbackBaseUrl}${fileToLoad}?t=${Date.now()}`;
+                response = await fetch(fetchUrl);
+            }
 
             // Fehler, falls die Datei nicht gefunden wurde (z.B. 404)
             if (!response.ok) {
@@ -269,8 +279,17 @@
                         try {
                             // a.href ist die 'magische' Eigenschaft, die die volle, aufgelöste URL liefert.
                             // Das funktioniert sowohl lokal als auch online.
-                            const fetchUrl = `${a.href}?t=${Date.now()}`;
-                            const res = await fetch(fetchUrl);
+                            let fetchUrl = `${a.href}?t=${Date.now()}`;
+                            let res = await fetch(fetchUrl);
+                            if (!res.ok) {
+                                // Falls der Link über den Primärpfad auflöste und fehlschlug, ersetze auf Fallback-Basis
+                                try {
+                                    const url = new URL(a.href);
+                                    const replaced = url.href.replace(baseUrl, fallbackBaseUrl);
+                                    fetchUrl = `${replaced}?t=${Date.now()}`;
+                                    res = await fetch(fetchUrl);
+                                } catch {}
+                            }
                             if (!res.ok) throw new Error(`Fehler beim Laden (Status: ${res.status})`);
                             const html = await res.text();
 
