@@ -1,0 +1,26 @@
+{
+  "courseId": "situation_2",
+  "courseName": "Situation 2 - SmartHome Systems",
+  "description": "Einstieg in strukturierte Programmierung und Embedded-Logik am SmartHome-Beispiel.",
+  "institution": "Heinz-Nixdorf-Berufskolleg",
+  "language": "de",
+  "version": "1.0.0",
+  "phase": 2,
+  "features": ["chapters_only"],
+  "chapters": [
+    {
+      "id": "2.0",
+      "title": "SmartHome Systems",
+      "file": "2.0_smarthome_systems.html",
+      "type": "intro",
+      "duration": "15 min"
+    },
+    {
+      "id": "2.1",
+      "title": "Der Logik-Architekt",
+      "file": "2.1_logik_architekt.html",
+      "type": "lesson",
+      "duration": "25 min"
+    }
+  ]
+}

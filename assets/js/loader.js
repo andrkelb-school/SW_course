@@ -14,7 +14,7 @@
 
 class CourseLoader {
   constructor(options = {}) {
-    this.baseUrl = options.baseUrl || 'https://purge.jsdelivr.net/gh/andrkelb-school/SW_Situation_1_BauMax@latest';
+    this.baseUrl = options.baseUrl || 'https://cdn.jsdelivr.net/gh/andrkelb-school/SW_Situation_1_BauMax@latest';
     this.courseId = options.courseId || 'situation_1';
     this.localMode = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     
@@ -248,7 +248,10 @@ class CourseLoader {
         '1.6': 'seite1.6_mehrwertsteuer.html',
         '1.7': 'seite1.7_speicheroptimierung.html',
         '1.8': 'seite1.8_verpackungs_rechner.html',
-        '1.9': 'seite1.9_zugangs_check.html'
+        '1.9': 'seite1.9_zugangs_check.html',
+        // Situation 2
+        '2.0': 'seite2.0_smarthome_systems.html',
+        '2.1': 'seite2.1_logik_architekt.html'
       };
 
       const fileName = fileMapping[chapter.id];
