@@ -1,0 +1,14 @@
+{
+  "name": "Summe zweier Zahlen",
+  "category": "Programmierung/Python/Grundlagen",
+  "language": "python3",
+  "prototype": "python3",
+  "description_md": "Sie erhalten zwei ganze Zahlen als Eingabe über stdin (getrennt durch Leerzeichen). Geben Sie die Summe aus.\n\nBeispiel:\nEingabe: 2 3\nAusgabe: 5",
+  "answer_template": "def main():\n    # Lies zwei Zahlen und gib ihre Summe aus\n    pass\n\nif __name__ == '__main__':\n    main()",
+  "answer_box_size": 12,
+  "grader_type": "normal",
+  "test_strategy": "all_or_nothing",
+  "timeout": 5,
+  "tags": ["arithmetik", "eingabe", "python", "einsteiger"],
+  "tests_ref": "tests.yaml"
+}
