@@ -18,9 +18,23 @@
     {
       "id": "2.1",
       "title": "Der Logik-Architekt",
-      "file": "2.1_logik_architekt.html",
+      "file": "seite2.1_logik_architekt.html",
       "type": "lesson",
       "duration": "25 min"
+    },
+    {
+      "id": "2.2",
+      "title": "Der Frost-Wächter",
+      "file": "seite2.2_frost_waechter.html",
+      "type": "exercise",
+      "duration": "30 min"
+    },
+    {
+      "id": "2.3",
+      "title": "Die automatische Beleuchtung",
+      "file": "seite2.3_automatische_beleuchtung.html",
+      "type": "exercise",
+      "duration": "30 min"
     }
   ]
 }
