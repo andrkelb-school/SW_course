@@ -35,6 +35,13 @@
       "file": "seite2.3_automatische_beleuchtung.html",
       "type": "exercise",
       "duration": "30 min"
+    },
+    {
+      "id": "2.4",
+      "title": "Der Klima-Manager",
+      "file": "seite2.4_klima_manager.html",
+      "type": "exercise",
+      "duration": "30 min"
     }
   ]
 }

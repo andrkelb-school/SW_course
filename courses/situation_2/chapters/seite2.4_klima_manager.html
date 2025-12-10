@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Der Klima-Manager</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>body{font-family:Arial,Helvetica,sans-serif;background:#f9f9f9;padding:1rem}</style>
+</head>
+<body>
+
+<!-- HIER_STARTET_DER_INHALT -->
+
+<div style="font-family: Arial, sans-serif; border: 1px solid #dddddd; border-radius: 8px; padding: 25px; background-color: #f9f9f9; max-width: 800px; margin: 20px auto;">
+  <h3 style="color: #2e7d32; margin-top: 0; font-weight: bold; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px;">Der Klima-Manager</h3>
+  
+  <div style="background-color: #e8f5e9; border-left: 4px solid #c8e6c9; padding: 15px; margin-top: 10px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+    <p style="margin: 0 0 10px 0; font-size: 0.9em; color: #555;"><strong>Von:</strong> Kundenservice (Ticket #90210)<br><strong>Betreff:</strong> BESCHWERDE: Lüftung nervt!</p>
+    <p style="margin: 0; font-style: italic; line-height: 1.6;">"Sehr geehrte Damen und Herren,<br>
+    die Lüftungssteuerung in meinem SmartHome ist eine Katastrophe! Entweder ist sie aus und ich schwitze, oder sie läuft auf voller Power und ist laut wie ein Düsenjet – selbst wenn es nur ein bisschen warm ist. <br>
+    Ich erwarte eine intelligente Anpassung: Wenn es nur leicht warm ist, will ich ein sanftes Lüftchen. Nur wenn es richtig heiß ist, darf der Turbo laufen. Und im Winter soll das Ding gefälligst Ruhe geben!<br>
+    Bitte beheben Sie das sofort."</p>
+  </div>
+  
+  <h4 style="color: #34495e; margin-top: 30px; margin-bottom: 10px;">Der Auftrag:</h4>
+  <p style="margin: 0; line-height: 1.6;">Als Entwickler müssen Sie diesen Kundenwunsch in Logik übersetzen. Die Hardware bietet einen Lüfter mit den Stufen <strong>0 (Aus), 1 (Leise), 2 (Normal) und 3 (Turbo)</strong>.</p>
+  
+  <p style="margin: 15px 0 0 0; line-height: 1.6;">Analysieren Sie die Anforderungen und implementieren Sie die Steuerung basierend auf der <code>temperatur</code> (Eingabe):</p>
+  <ul style="margin: 5px 0 15px 20px; padding: 0; line-height: 1.6;">
+      <li>Alles unter 20 Grad ist "Winter" &rarr; Lüfter bleibt aus.</li>
+      <li>Ab 20 Grad bis einschließlich 24 Grad (Komfort-Bereich) &rarr; Stufe 1.</li>
+      <li>Ab 25 Grad bis einschließlich 29 Grad (Warm) &rarr; Stufe 2.</li>
+      <li>Ab 30 Grad (Hitze) &rarr; Stufe 3.</li>
+  </ul>
+
+  <div style="background-color: #e3f2fd; padding: 10px; border-radius: 4px; border: 1px solid #bbdefb; font-size: 0.9em;">
+      <strong>Technischer Hinweis:</strong> Da hier mehrere Bereiche geprüft werden müssen, die sich gegenseitig ausschließen, eignet sich die <strong>Mehrfachverzweigung (if-else-if)</strong> am besten.
+  </div>
+
+  <h4 style="color: #34495e; margin-top: 30px; margin-bottom: 10px;">🖥️ Erwartete Ausgabe (Beispielwerte):</h4>
+  <p style="margin-bottom: 5px;">Bei Temperatur = <code>18</code>:</p>
+  <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">System Standby. Lüfter AUS.</code></pre>
+  
+  <p style="margin-top: 15px; margin-bottom: 5px;">Bei Temperatur = <code>22</code>:</p>
+  <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Komfort-Modus. Lüfter Stufe 1.</code></pre>
+
+  <p style="margin-top: 15px; margin-bottom: 5px;">Bei Temperatur = <code>32</code>:</p>
+  <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Hitzewelle! Lüfter Stufe 3 (Turbo).</code></pre>
+</div>
+
+<div style="font-family: Arial, sans-serif; border: 1px solid #dddddd; border-radius: 8px; padding: 25px; background-color: #f9f9f9; max-width: 800px; margin: 20px auto; margin-top: -1px; border-top: 4px solid #FB8C00;">
+  <h4 style="color: #e65100; margin-top: 0; font-weight: bold;">Zusatzaufgabe für Experten</h4>
+  
+  <div style="background-color: #fff3e0; padding: 15px; border: 1px solid #ffe0b2; border-radius: 5px; margin-top: 15px;">
+    <p style="margin: 0 0 10px 0; font-weight: bold; font-size: 1.1em; color: #e65100;">Der Schimmel-Wächter</p>
+    <p style="margin: 0; line-height: 1.6;"><strong>Problem:</strong> Ein weiterer Kunde meldet sich. Er hat Schimmel im Keller, obwohl die Temperatur dort meist niedrig ist (unter 20 Grad). Die Lüftung ist dort also nie an, die Feuchtigkeit staut sich.</p>
+    <p style="margin: 10px 0 0 0; line-height: 1.6;"><strong>Ihre Aufgabe:</strong> Analysieren Sie das Problem.</p>
+    <ul style="margin: 5px 0 10px 20px; padding: 0; line-height: 1.6;">
+        <li>Fragen Sie zusätzlich die <code>luftfeuchtigkeit</code> (0-100) ab.</li>
+        <li>Das System muss nun eine <strong>Ausnahme</strong> machen: Auch wenn es kalt ist (< 20°), muss der Lüfter auf <strong>Stufe 1</strong> laufen, falls die Feuchtigkeit <strong>über 70%</strong> liegt.</li>
+        <li>In allen anderen Fällen (normale Feuchtigkeit oder höhere Temperaturen) gilt weiterhin die Standard-Regelung von oben.</li>
+    </ul>
+    <p style="margin: 0; line-height: 1.6;">Implementieren Sie diese Logik durch geschickte Anpassung Ihrer Bedingungen.</p>
+  
+    <h5 style="color: #34495e; margin-top: 15px; margin-bottom: 10px;">🖥️ Erwartete Ausgabe (Beispielwerte):</h5>
+    <p style="margin-bottom: 5px;">Temp 18 (kalt), Feuchte 40 (trocken):</p>
+    <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">System Standby. Lüfter AUS.</code></pre>
+  
+    <p style="margin-top: 15px; margin-bottom: 5px;">Temp 18 (kalt), Feuchte 80 (feucht):</p>
+    <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Schimmelgefahr! Lüfter Stufe 1 (Entfeuchtung).</code></pre>
+  </div>
+</div>
+
+<!-- HIER_STARTET_DER_INHALT -->
+
+</body>
+</html>

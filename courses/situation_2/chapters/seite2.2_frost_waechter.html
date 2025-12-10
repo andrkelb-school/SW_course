@@ -47,16 +47,14 @@
         <li><strong>ODER</strong> der Notfall-Schalter aktiv ist (dann ist der Rest egal).</li>
     </ul>
 
+    <h5 style="color: #34495e; margin-top: 15px; margin-bottom: 10px;">🖥️ Erwartete Ausgabe (Beispielwerte):</h5>
+    <p style="margin-bottom: 5px;">Szenario 1: Es ist kalt, das Fenster ist zu, Override ist aus:</p>
+    <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Achtung: Frostgefahr! Heizung an.</code></pre>
+    <p style="margin-top: 15px; margin-bottom: 5px;">Szenario 2: Es ist kalt, aber das Fenster ist offen (Override aus):</p>
+    <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;"><span style="opacity: 0.7; font-style: italic;">(Keine Ausgabe erwartet)</span></code></pre>
+    <p style="margin-top: 15px; margin-bottom: 5px;">Szenario 3: Es ist warm, Fenster ist offen, aber Override ist AN:</p>
+    <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Achtung: Frostgefahr! Heizung an.</code></pre>
   </div>
-  
-  <h5 style="color: #34495e; margin-top: 15px; margin-bottom: 10px;">🖥️ Erwartete Ausgabe (Beispielwerte):</h5>
-  <p style="margin-bottom: 5px;">Szenario 1: Es ist kalt, das Fenster ist zu, Override ist aus:</p>
-  <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Achtung: Frostgefahr! Heizung an.</code></pre>
-  <p style="margin-top: 15px; margin-bottom: 5px;">Szenario 2: Es ist kalt, aber das Fenster ist offen (Override aus):</p>
-  <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;"><span style="opacity: 0.7; font-style: italic;">(Keine Ausgabe erwartet)</span></code></pre>
-  <p style="margin-top: 15px; margin-bottom: 5px;">Szenario 3: Es ist warm, Fenster ist offen, aber Override ist AN:</p>
-  <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Achtung: Frostgefahr! Heizung an.</code></pre>
-  
 
   <div style="background-color: #fff3e0; padding: 15px; border: 1px solid #ffe0b2; border-radius: 5px; margin-top: 30px;">
     <p style="margin: 0 0 10px 0; font-weight: bold; font-size: 1.1em; color: #e65100;">2. Der Eco-Smart-Modus</p>
@@ -74,17 +72,17 @@
         </li>
     </ul>
     <p style="margin: 0; line-height: 1.6; font-style: italic;">Tipp: Versuchen Sie dies entweder durch eine klug geklammerte Bedingung oder durch verschachtelte if-Anweisungen zu lösen.</p>
+  
+    <h5 style="color: #34495e; margin-top: 15px; margin-bottom: 10px;">🖥️ Erwartete Ausgabe (Beispielwerte):</h5>
+    <p style="margin-bottom: 5px;">Szenario A: -15 Grad (Extremkälte) -> Heizung AN (egal was sonst ist).</p>
+    <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Achtung: Frostgefahr! Heizung an.</code></pre>
+    
+    <p style="margin-top: 15px; margin-bottom: 5px;">Szenario B: 0 Grad, Anwesend, Fenster ZU, Batterie 50% -> Heizung AN (Komfort).</p>
+    <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Achtung: Frostgefahr! Heizung an.</code></pre>
+  
+    <p style="margin-top: 15px; margin-bottom: 5px;">Szenario C: 0 Grad, Anwesend, Fenster ZU, Batterie LEER (10%) -> Heizung AUS (Sparmodus).</p>
+    <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;"><span style="opacity: 0.7; font-style: italic;">(Keine Ausgabe erwartet)</span></code></pre>
   </div>
-  
-  <h5 style="color: #34495e; margin-top: 15px; margin-bottom: 10px;">🖥️ Erwartete Ausgabe (Beispielwerte):</h5>
-  <p style="margin-bottom: 5px;">Szenario A: -15 Grad (Extremkälte) -> Heizung AN (egal was sonst ist).</p>
-  <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Achtung: Frostgefahr! Heizung an.</code></pre>
-  
-  <p style="margin-top: 15px; margin-bottom: 5px;">Szenario B: 0 Grad, Anwesend, Fenster ZU, Batterie 50% -> Heizung AN (Komfort).</p>
-  <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Achtung: Frostgefahr! Heizung an.</code></pre>
-
-  <p style="margin-top: 15px; margin-bottom: 5px;">Szenario C: 0 Grad, Anwesend, Fenster ZU, Batterie LEER (10%) -> Heizung AUS (Sparmodus).</p>
-  <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;"><span style="opacity: 0.7; font-style: italic;">(Keine Ausgabe erwartet)</span></code></pre>
 </div>
 
 <!-- HIER_STARTET_DER_INHALT -->
