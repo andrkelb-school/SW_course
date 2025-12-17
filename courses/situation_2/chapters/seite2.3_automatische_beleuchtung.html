@@ -43,7 +43,6 @@
   <div style="background-color: #fff3e0; padding: 15px; border: 1px solid #ffe0b2; border-radius: 5px; margin-top: 15px;">
     <p style="margin: 0 0 10px 0; font-weight: bold; font-size: 1.1em; color: #e65100;">1. Die Sicherheits-Logik</p>
     <p style="margin: 0; line-height: 1.6;"><strong>Neues Ticket:</strong> "Wir möchten die Beleuchtung auch als Einbruchschutz nutzen. Wenn der Alarm scharf ist, soll das Licht angehen, um abzuschrecken – egal wie hell es ist."</p>
-    <p style="margin: 10px 0 0 0; line-height: 1.6;"><strong>Hinweis:</strong> Verwenden Sie keine if-else if-Anweisung.</p>
     <p style="margin: 10px 0 0 0; line-height: 1.6;"><strong>Ihre Aufgabe:</strong> Erweitern Sie Ihre <strong>eine if-else-Anweisung</strong> um logische Verknüpfungen (<code>&&</code>, <code>||</code>). Das Licht geht AN, wenn:</p>
     <ul style="margin: 5px 0 10px 20px; padding: 0; line-height: 1.6;">
         <li>Der <code>alarm_scharf</code> ist (Priorität!).</li>
@@ -51,6 +50,7 @@
     </ul>
     <p style="margin: 0; line-height: 1.6;">Sonst bleibt das Licht AUS.</p>
   
+    <p style="margin: 10px 0 0 0; line-height: 1.6;"><strong>Hinweis:</strong> Verwenden Sie keine <strong>else if</strong>-Anweisung.</p>
     <h5 style="color: #34495e; margin-top: 15px; margin-bottom: 10px;">🖥️ Erwartete Ausgabe (Beispielwerte):</h5>
     <p style="margin-bottom: 5px;">Szenario A: Alarm SCHARF, Sensor 800, keine Bewegung:</p>
     <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Licht AN</code></pre>
@@ -66,7 +66,6 @@
   <div style="background-color: #fff3e0; padding: 15px; border: 1px solid #ffe0b2; border-radius: 5px; margin-top: 30px;">
     <p style="margin: 0 0 10px 0; font-weight: bold; font-size: 1.1em; color: #e65100;">2. Der Urlaubs-Hauptschalter</p>
     <p style="margin: 0; line-height: 1.6;"><strong>Problem:</strong> Wenn die Bewohner im Urlaub sind, soll das gesamte System totgelegt werden können, um Fehlfunktionen auszuschließen.</p>
-    <p style="margin: 10px 0 0 0; line-height: 1.6;"><strong>Hinweis:</strong> Verwenden Sie keine if-else if-Anweisung.</p>
     <p style="margin: 10px 0 0 0; line-height: 1.6;"><strong>Ihre Aufgabe:</strong> Bauen Sie eine <strong>verschachtelte Struktur</strong> (eine Anweisung in einer anderen):</p>
     <ol style="margin: 5px 0 10px 20px; padding: 0; line-height: 1.6;">
         <li>Prüfen Sie ganz außen erst, ob der <code>hauptschalter</code> (ja/nein) eingeschaltet ist.</li>
@@ -74,6 +73,7 @@
         <li>Ist der Hauptschalter AUS, geben Sie nur "System deaktiviert" aus.</li>
     </ol>
   
+    <p style="margin: 10px 0 0 0; line-height: 1.6;"><strong>Hinweis:</strong>  Verwenden Sie keine <strong>else if</strong>-Anweisung.</p>
     <h5 style="color: #34495e; margin-top: 15px; margin-bottom: 10px;">🖥️ Erwartete Ausgabe (Beispielwerte):</h5>
     <p style="margin-bottom: 5px;">Hauptschalter AUS, Alarm AN:</p>
     <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">System deaktiviert.</code></pre>

@@ -32,9 +32,7 @@
       <li>Ab 30 Grad (Hitze) &rarr; Stufe 3.</li>
   </ul>
 
-  <div style="background-color: #e3f2fd; padding: 10px; border-radius: 4px; border: 1px solid #bbdefb; font-size: 0.9em;">
-      <strong>Technischer Hinweis:</strong> Da hier mehrere Bereiche geprüft werden müssen, die sich gegenseitig ausschließen, eignet sich die <strong>Mehrfachverzweigung (if-else-if)</strong> am besten.
-  </div>
+  
 
   <h4 style="color: #34495e; margin-top: 30px; margin-bottom: 10px;">🖥️ Erwartete Ausgabe (Beispielwerte):</h4>
   <p style="margin-bottom: 5px;">Bei Temperatur = <code>18</code>:</p>
@@ -67,6 +65,19 @@
   
     <p style="margin-top: 15px; margin-bottom: 5px;">Temp 18 (kalt), Feuchte 80 (feucht):</p>
     <pre style="background-color: #2b2b2b; color: #f0f0f0; border: 1px solid #555; border-radius: 5px; padding: 15px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;"><code style="font-family: 'Courier New', Courier, monospace;">Schimmelgefahr! Lüfter Stufe 1 (Entfeuchtung).</code></pre>
+  </div>
+
+  <div style="background-color: #fff3e0; padding: 15px; border: 1px solid #ffe0b2; border-radius: 5px; margin-top: 25px;">
+    <p style="margin: 0 0 10px 0; font-weight: bold; font-size: 1.1em; color: #e65100;">Zusatzaufgabe 2: Der Heimkino-Modus</p>
+    <p style="margin: 0; line-height: 1.6;"><strong>Szenario:</strong> Ein Kunde ist ein Film-Fan. Ihn stört das Geräusch des Lüfters auf <strong>Stufe 2</strong>, wenn er gerade einen Film schaut, aber es im Raum "Warm" (25–29 Grad) ist.</p>
+    <p style="margin: 10px 0 0 0; line-height: 1.6;"><strong>Ihre Aufgabe:</strong> Erweitern Sie Ihre Steuerung um einen "Heimkino-Modus" (Variable <code>heimkino_modus</code>).</p>
+    <ul style="margin: 5px 0 10px 20px; padding: 0; line-height: 1.6;">
+        <li>Dieser Modus hat <strong>nur</strong> Auswirkungen im Temperaturbereich <strong>25 bis 29 Grad</strong>.</li>
+        <li>Ist der Modus <strong>aktiv</strong>, soll der Lüfter in diesem Bereich leiser laufen (Drosselung auf <strong>Stufe 1</strong>).</li>
+        <li>Ist der Modus <strong>inaktiv</strong>, bleibt es bei der Standard-Einstellung (Stufe 2).</li>
+        <li><strong>Sicherheits-Regel:</strong> Ab 30 Grad ("Hitze") hat die Kühlung immer Vorrang (Stufe 3), egal ob der Heimkino-Modus an ist oder nicht!</li>
+    </ul>
+    <p style="margin: 0; line-height: 1.6;">Passen Sie Ihre Logik so an, dass diese Kundenwünsche erfüllt werden.</p>
   </div>
 </div>
 
